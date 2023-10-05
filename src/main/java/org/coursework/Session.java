@@ -1,10 +1,10 @@
 package org.coursework;
 
+import org.coursework.config.EnvConfig;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +25,7 @@ public class Session {
 
     public WebDriver webdriver() {
         if (this._webdriver == null) {
-            if ("chrome".equalsIgnoreCase(Config.WEB_BROWSER.value)) {
+            if ("chrome".equalsIgnoreCase(EnvConfig.WEB_BROWSER.value)) {
                 ChromeOptions options = new ChromeOptions();
 //                options.addArguments("wm-window-animations-disabled");
 //                options.addArguments("ash-disable-smooth-screen-rotation");
@@ -44,7 +44,7 @@ public class Session {
 //                preferences.put("profile.password_manager_enabled", false);
 //                options.setExperimentalOption("prefs", preferences);
 //                options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation", "load-extension"});
-//                if (Config.WEB_BROWSER_NO_GUI.isTrue()) {
+//                if (EnvConfig.WEB_BROWSER_NO_GUI.isTrue()) {
 //                    options.addArguments("--headless");
 //                    options.addArguments("--no-sandbox");
 //                    options.addArguments("start-maximized");

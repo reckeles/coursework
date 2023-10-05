@@ -1,15 +1,15 @@
 package org.coursework.base;
 
 import com.codeborne.selenide.WebDriverRunner;
+import org.coursework.config.EnvConfig;
 import org.coursework.Session;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
-import org.coursework.Config;
 
 public class BaseGUITest {
     @BeforeMethod
     public void before() {
-        Session.get().webdriver().get(String.format("http://%s:%s", Config.HTTP_BASE_URL.value, Config.HTTP_BASE_PORT.value));
+        Session.get().webdriver().get(String.format("http://%s:%s", EnvConfig.HTTP_BASE_URL.value, EnvConfig.HTTP_BASE_PORT.value));
         WebDriverRunner.setWebDriver(this.wd());
     }
 
