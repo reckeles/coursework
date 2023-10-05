@@ -1,4 +1,4 @@
-package org.coursework;
+package org.coursework.ui;
 
 import org.coursework.base.BaseGUITest;
 import org.coursework.page.DashboardPage;
@@ -6,7 +6,7 @@ import org.coursework.page.LoginPage;
 import org.testng.annotations.Test;
 
 
-public class FirstTest extends BaseGUITest {
+public class LoginTest extends BaseGUITest {
     LoginPage loginPage = new LoginPage();
     DashboardPage dashboardPage = new DashboardPage();
 
