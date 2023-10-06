@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Selenide.open;
 
 public class DashboardPage {
     private SelenideElement search = Selenide.$("input#form-search");
-    private SelenideElement newProjectButton = Selenide.$("//section//a[@href='/project/create']");
+    private SelenideElement newProjectButton = Selenide.$x("//section//a[@href='/project/create']");
 
     @Step("User is logged in successfully")
     public void searchVisible() {
