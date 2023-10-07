@@ -15,6 +15,7 @@ public class EnvConfig extends BaseConfig {
     static final public Param HTTP_BASE_URL     = new Param("http.base.url",    "localhost", true, getEnvProperties(env));
     static final public Param HTTP_BASE_PORT    = new Param("http.base.port",   "80",      true, getEnvProperties(env));
     static final public Param WEB_BROWSER = new Param("web.browser", "chrome", true, getEnvProperties(env));
+    static final public Param JSONRPC_VERSION = new Param("kanboard.jsonrpc.version", "2.0", true, getEnvProperties(env));
 
 
     static private Properties envProperties;
