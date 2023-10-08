@@ -1,4 +1,4 @@
-package org.coursework.model;
+package org.coursework.model.user;
 
 import java.lang.reflect.Field;
 
@@ -12,7 +12,11 @@ public class User {
     public User() {
     }
 
-    public User(String username, String password, String name, String email, String role) {
+    public User(String username,
+                String password,
+                String name,
+                String email,
+                String role) {
         this.username = username;
         this.password = password;
         this.name = name;

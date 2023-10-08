@@ -1,4 +1,4 @@
-package org.coursework.model;
+package org.coursework.model.base;
 
 public class BaseResponse<T> {
     private String jsonrpc;

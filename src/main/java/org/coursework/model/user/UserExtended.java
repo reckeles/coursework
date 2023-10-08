@@ -1,28 +1,26 @@
-package org.coursework.model;
-
-import javax.print.DocFlavor;
+package org.coursework.model.user;
 
 public class UserExtended extends User {
-    Integer id;
-    Integer is_ldap_user;
-    String google_id;
-    String github_id;
-    Integer notifications_enabled;
-    String timezone;
-    String language;
-    Integer disable_login_form;
-    Integer twofactor_activated;
-    String twofactor_secret;
-    String token;
-    Integer notifications_filter;
-    Integer nb_failed_login;
-    Integer lock_expiration_date;
-    Integer gitlab_id;
-    Integer is_active;
-    String avatar_path;
-    String api_access_token;
-    String filter;
-    String theme;
+    private Integer id;
+    private Integer is_ldap_user;
+    private String google_id;
+    private String github_id;
+    private Integer notifications_enabled;
+    private String timezone;
+    private String language;
+    private Integer disable_login_form;
+    private Integer twofactor_activated;
+    private String twofactor_secret;
+    private String token;
+    private Integer notifications_filter;
+    private Integer nb_failed_login;
+    private Integer lock_expiration_date;
+    private Integer gitlab_id;
+    private Integer is_active;
+    private String avatar_path;
+    private String api_access_token;
+    private String filter;
+    private String theme;
 
     public UserExtended() {
     }

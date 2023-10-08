@@ -1,4 +1,4 @@
-package org.coursework.model;
+package org.coursework.model.base;
 
 import org.coursework.config.EnvConfig;
 

@@ -1,4 +1,4 @@
-package org.coursework.model;
+package org.coursework.model.user;
 
 public class UserId {
     int user_id;

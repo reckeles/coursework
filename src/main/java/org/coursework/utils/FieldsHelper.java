@@ -1,6 +1,7 @@
 package org.coursework.utils;
 
-import org.coursework.model.User;
+import org.coursework.model.project.Project;
+import org.coursework.model.user.User;
 
 import java.lang.reflect.Field;
 
@@ -35,6 +36,15 @@ public class FieldsHelper {
     public static String getUserEmailField() {
         try {
             Field field = User.class.getDeclaredField("email");
+            return field.getName();
+        } catch (NoSuchFieldException e) {
+            return null;
+        }
+    }
+
+    public static String getProjectNameField() {
+        try {
+            Field field = Project.class.getDeclaredField("name");
             return field.getName();
         } catch (NoSuchFieldException e) {
             return null;
