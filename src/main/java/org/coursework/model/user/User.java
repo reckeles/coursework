@@ -1,7 +1,10 @@
 package org.coursework.model.user;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.lang.reflect.Field;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class User {
     private String username;
     private String password;

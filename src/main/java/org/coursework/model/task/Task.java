@@ -1,5 +1,8 @@
 package org.coursework.model.task;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Task {
     private String title;
     private Integer project_id;
@@ -67,8 +70,7 @@ public class Task {
         this.recurrence_timeframe = recurrence_timeframe;
         this.recurrence_basedate = recurrence_basedate;
         this.reference = reference;
-        if (tags == null) this.tags = new String[]{};
-        else this.tags = tags;
+        this.tags = tags;
         this.date_started = date_started;
     }
 

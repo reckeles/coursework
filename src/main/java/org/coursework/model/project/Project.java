@@ -1,5 +1,9 @@
 package org.coursework.model.project;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Project {
     private String name;
     private String description;
