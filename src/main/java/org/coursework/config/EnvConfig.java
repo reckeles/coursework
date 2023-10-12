@@ -36,7 +36,7 @@ public class EnvConfig extends BaseConfig {
     }
 
     static public String getBaseURL(){
-        return String.format("http://%s:%s", EnvConfig.HTTP_BASE_URL.value, EnvConfig.HTTP_BASE_PORT.value);
+        return String.format("%s://%s", EnvConfig.HTTP_BASE_PROTOCOL.value, EnvConfig.HTTP_BASE_URL.value);
     }
 
     static private Environment setEnv(){

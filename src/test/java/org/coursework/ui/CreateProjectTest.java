@@ -6,6 +6,7 @@ import org.coursework.model.project.ProjectId;
 import org.coursework.page.CreateProjectPage;
 import org.coursework.page.DashboardPage;
 import org.coursework.page.ProjectPage;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -16,13 +17,14 @@ public class CreateProjectTest extends BaseGUITest {
     private ProjectPage projectPage = new ProjectPage();
     private int projectId;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void before(){
+        System.out.println("CreateProject before");
         setWebDriver();
         login();
     }
 
-    @Test
+    @Test(groups = { "smoke", "regression", "CRUD_project" })
     public void createProject(){
         dashboardPage.openCreateProjectWindow();
         createProjectPage.createProjectOnlyRequiredFields("project133");
@@ -30,9 +32,9 @@ public class CreateProjectTest extends BaseGUITest {
         projectId = projectPage.getProjectId();
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void after() {
-        ProjectProcedures.removeProject(new ProjectId(projectId));
         closeWebDriver();
+        ProjectProcedures.removeProject(new ProjectId(projectId));
     }
 }

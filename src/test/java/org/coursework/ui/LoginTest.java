@@ -14,36 +14,37 @@ import org.testng.annotations.Test;
 public class LoginTest extends BaseGUITest {
     private LoginPage loginPage = new LoginPage();
     private DashboardPage dashboardPage = new DashboardPage();
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void before() {
+        System.out.println("Login before");
         setWebDriver();
     }
 
-    @Test
+    @Test(groups = { "smoke", "regression", "authflow" })
     public void loginValidUser() {
         loginPage.login("admin", "admin");
         dashboardPage.searchVisible();
     }
 
-    @Test
+    @Test(groups = { "regression", "authflow" })
     public void loginEmptyUsernameField() {
         loginPage.loginWithoutPassword("admin");
         loginPage.usernameIsRequired();
     }
 
-    @Test
+    @Test(groups = { "regression", "authflow" })
     public void loginEmptyPasswordField() {
         loginPage.loginWithoutUsername("admin");
         loginPage.passwordIsRequired();
     }
 
-    @Test
+    @Test(groups = { "smoke", "regression", "authflow" })
     public void loginInvalidUser() {
         loginPage.login("admin1", "admin");
         loginPage.assertBadCredsAlertIsPresent();
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void after() {
         closeWebDriver();
     }

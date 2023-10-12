@@ -7,6 +7,7 @@ import org.coursework.model.project.Project;
 import org.coursework.model.project.ProjectId;
 import org.coursework.model.user.User;
 import org.coursework.page.BoardPage;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -19,8 +20,9 @@ public class CreateTaskTest extends BaseGUITest {
     Integer projectId;
 
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void before(){
+        System.out.println("CreateTask before");
         Random rand = new Random();
         int int_random = rand.nextInt(1000);
         Project project = new Project("project"+int_random);
@@ -32,19 +34,20 @@ public class CreateTaskTest extends BaseGUITest {
         login();
     }
 
-    @Test
+    @Test(groups = { "smoke", "regression", "CRUD_tasks" })
     public void createTask(){
         boardPage.openPage(projectId);
         boardPage.openAddTaskFormFromBacklog();
+
 //        createProjectPage.createProjectOnlyRequiredFields("project133");
 //        projectPage.assertPageUrlIsRight();
 //        projectId = projectPage.getProjectId();
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void after() {
-        ProjectProcedures.removeProject(new ProjectId(projectId));
         closeWebDriver();
+        ProjectProcedures.removeProject(new ProjectId(projectId));
     }
 }
 

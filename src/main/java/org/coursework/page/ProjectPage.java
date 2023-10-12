@@ -17,7 +17,7 @@ public class ProjectPage {
         //TO DO switch for waiting of page loading
         projectIsOpenLabel.shouldBe(Condition.visible);
         String url = WebDriverRunner.url();
-        Assert.assertTrue(url.matches(PROJECT_URL_REGEX));
+        Assert.assertTrue(url.matches(PROJECT_URL_REGEX), "Current url is wrong"+url);
     }
 
     public int getProjectId(){
