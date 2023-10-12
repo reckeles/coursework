@@ -85,9 +85,9 @@ public class Session {
         if(property==null){
             return chrome;
         }
-        else if (!property.equalsIgnoreCase(chrome) || !property.equalsIgnoreCase(firefox)){
-            return chrome;
+        else if (property.equalsIgnoreCase(chrome) || property.equalsIgnoreCase(firefox)){
+            return property;
         }
-        return property;
+        return chrome;
     }
 }

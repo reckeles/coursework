@@ -3,7 +3,7 @@ package org.coursework.config;
 import java.util.Properties;
 
 public class TextConfig extends BaseConfig{
-    static private TextLocale locale = TextLocale.valueOf(System.getProperty("locale"));
+    static private TextLocale locale = setLocale();
 //    static final private List<Param> _paramsList = new LinkedList<>();
 
     static final public Param LOGIN_PAGE_BAD_CREDS_ALERT = new Param("login.badCredsAlert", "Bad username or password", true, getEnvProperties(locale));
@@ -22,5 +22,13 @@ public class TextConfig extends BaseConfig{
             //envProperties.putAll(getResourceProperties("allure.properties"));
         }
         return envProperties;
+    }
+
+    static private TextLocale setLocale(){
+        String property = System.getProperty("locale");
+        if(property == null){
+            return  TextLocale.EN;
+        }
+        return TextLocale.valueOf(property);
     }
 }
