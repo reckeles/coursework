@@ -3,20 +3,26 @@ package org.coursework.page;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.Step;
 import org.coursework.Session;
 import org.coursework.config.EnvConfig;
 import org.testng.Assert;
 
 public class ProjectPage {
+    private final String PROJECT_URL_REGEX = String.format("%s/project/\\d+", EnvConfig.getBaseURL());
     private SelenideElement projectIsOpenLabel = Selenide.$x("//ul[@class='panel']/li[1]");
     @Step
     public void assertPageUrlIsRight(){
+        //TO DO switch for waiting of page loading
         projectIsOpenLabel.shouldBe(Condition.visible);
-        //TO DO - GET project ID by name from API request
-        int id = 5;
-        String expectedURL = String.format("http://%s/project/%s", EnvConfig.HTTP_BASE_URL.value, id);
-        Assert.assertEquals(Session.get().webdriver().getCurrentUrl(), expectedURL);
+        String url = WebDriverRunner.url();
+        Assert.assertTrue(url.matches(PROJECT_URL_REGEX));
+    }
 
+    public int getProjectId(){
+        String url = WebDriverRunner.url();
+        String[] splitURL = url.split("/");
+        return Integer.parseInt(splitURL[splitURL.length-1]);
     }
 }

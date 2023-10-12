@@ -15,6 +15,15 @@ public class Project {
     public Project() {
     }
 
+    public Project(String name){
+        this.name = name;
+        this.description = null;
+        this.owner_id = null;
+        this.identifier = null;
+        this.start_date = null;
+        this.end_date = null;
+    }
+
     public Project(String name,
                    String description,
                    Integer owner_id,

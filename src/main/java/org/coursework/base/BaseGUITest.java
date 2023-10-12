@@ -10,7 +10,7 @@ import org.testng.annotations.*;
 
 public class BaseGUITest {
     protected void setWebDriver(){
-        Session.get().webdriver().get(String.format("http://%s:%s", EnvConfig.HTTP_BASE_URL.value, EnvConfig.HTTP_BASE_PORT.value));
+        Session.get().webdriver().get(EnvConfig.getBaseURL());
         WebDriverRunner.setWebDriver(this.wd());
     }
 

@@ -1,6 +1,8 @@
 package org.coursework.ui;
 
+import org.coursework.api.ProjectProcedures;
 import org.coursework.base.BaseGUITest;
+import org.coursework.model.project.ProjectId;
 import org.coursework.page.CreateProjectPage;
 import org.coursework.page.DashboardPage;
 import org.coursework.page.ProjectPage;
@@ -12,6 +14,7 @@ public class CreateProjectTest extends BaseGUITest {
     private DashboardPage dashboardPage = new DashboardPage();
     private CreateProjectPage createProjectPage = new CreateProjectPage();
     private ProjectPage projectPage = new ProjectPage();
+    private int projectId;
 
     @BeforeMethod
     public void before(){
@@ -24,11 +27,12 @@ public class CreateProjectTest extends BaseGUITest {
         dashboardPage.openCreateProjectWindow();
         createProjectPage.createProjectOnlyRequiredFields("project133");
         projectPage.assertPageUrlIsRight();
+        projectId = projectPage.getProjectId();
     }
 
     @AfterMethod
     public void after() {
-        //TO DO - delete projects via API
+        ProjectProcedures.removeProject(new ProjectId(projectId));
         closeWebDriver();
     }
 }
