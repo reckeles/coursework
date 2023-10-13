@@ -12,22 +12,22 @@ import java.util.Random;
 import static org.coursework.utils.FieldsHelper.getTaskTitleField;
 
 public class TaskTest {
-    Integer projectId;
+    Project project;
     @BeforeMethod
     public void before(){
         Random rand = new Random();
         int int_random = rand.nextInt(1000);
-        Project project = new Project("project"+int_random, null, 1, null, null, null);
+        project = new Project("project"+int_random, null, 1, null, null, null);
 
-        projectId = ProjectProcedures.createProject(project);
-        ProjectProcedures.itemIsCreated(projectId);
+        ProjectProcedures.createProject(project);
+        ProjectProcedures.itemIsCreated(project.getId());
     }
 
     @Test
     public void taskFlow(){
         Random rand = new Random();
         int int_random = rand.nextInt(1000);
-        Task task =  new Task("task"+int_random, projectId);
+        Task task =  new Task("task"+int_random, project.getId());
 
         Integer taskId = TaskProcedures.createTask(task);
         TaskProcedures.itemIsCreated(taskId);

@@ -6,7 +6,10 @@ import org.coursework.base.BaseGUITest;
 import org.coursework.model.project.Project;
 import org.coursework.model.project.ProjectId;
 import org.coursework.model.user.User;
+import org.coursework.model.user.UserId;
 import org.coursework.page.BoardPage;
+import org.coursework.page.CreateTaskPage;
+import org.openqa.selenium.support.ui.Sleeper;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -16,38 +19,49 @@ import java.util.Random;
 
 public class CreateTaskTest extends BaseGUITest {
 
-    BoardPage boardPage = new BoardPage();
-    Integer projectId;
+    private BoardPage boardPage = new BoardPage();
+    private CreateTaskPage createTaskPage = new CreateTaskPage();
+    private int int_random;
+
+
+    private User user;
+    private Project project;
 
 
     @BeforeMethod(alwaysRun = true)
-    public void before(){
-        System.out.println("CreateTask before");
+    public void before() {
         Random rand = new Random();
-        int int_random = rand.nextInt(1000);
-        Project project = new Project("project"+int_random);
-        projectId = ProjectProcedures.createProject(project);
+        int_random = rand.nextInt(100000);
+        user = new User("newuser" + int_random, "password_123", "Yuliia", "yuliia@gmail.com", "app-admin");
+        UserProcedures.createUser(user);
 
-        User user = new User("newuser"+int_random, "password_123", "Yuliia", "yuliia@gmail.com", "user");
-        Integer userId = UserProcedures.createUser(user);
+        project = new Project("project" + int_random, user.getId());
+        ProjectProcedures.createProject(project);
+
         setWebDriver();
-        login();
+        login(user.getUsername(), user.getPassword());
     }
 
-    @Test(groups = { "smoke", "regression", "CRUD_tasks" })
-    public void createTask(){
-        boardPage.openPage(projectId);
+    @Test(groups = {"smoke", "regression", "CRUD_tasks", "single"})
+    public void createTask() {
+        boardPage.openPage(project.getId());
+//        try {
+//            Thread.sleep(60*1000);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
+        String taskName = "task " + int_random;
         boardPage.openAddTaskFormFromBacklog();
-
-//        createProjectPage.createProjectOnlyRequiredFields("project133");
-//        projectPage.assertPageUrlIsRight();
-//        projectId = projectPage.getProjectId();
+        createTaskPage.createTaskOnlyRequiredFields(taskName);
+        boardPage.assertThatTaskNameIsSameAsAddedTask(taskName);
     }
 
     @AfterMethod(alwaysRun = true)
     public void after() {
         closeWebDriver();
-        ProjectProcedures.removeProject(new ProjectId(projectId));
+        ProjectProcedures.removeProject(project.getId(), user);
+        UserProcedures.removeUser(user.getId());
+        user = null;
     }
 }
 

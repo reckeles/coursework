@@ -18,10 +18,10 @@ public class BaseGUITest {
         Session.get().close();
     }
 
-    protected void login(){
+    protected void login(String username, String password){
         LoginPage loginPage = new LoginPage();
         DashboardPage dashboardPage = new DashboardPage();
-        loginPage.login("admin", "admin");
+        loginPage.login(username, password);
         dashboardPage.searchVisible();
     }
 

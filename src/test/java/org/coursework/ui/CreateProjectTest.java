@@ -19,9 +19,8 @@ public class CreateProjectTest extends BaseGUITest {
 
     @BeforeMethod(alwaysRun = true)
     public void before(){
-        System.out.println("CreateProject before");
         setWebDriver();
-        login();
+        login("admin", "admin");
     }
 
     @Test(groups = { "smoke", "regression", "CRUD_project" })
@@ -35,6 +34,6 @@ public class CreateProjectTest extends BaseGUITest {
     @AfterMethod(alwaysRun = true)
     public void after() {
         closeWebDriver();
-        ProjectProcedures.removeProject(new ProjectId(projectId));
+        ProjectProcedures.removeProject(projectId);
     }
 }

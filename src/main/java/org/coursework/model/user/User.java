@@ -11,6 +11,7 @@ public class User {
     private String name;
     private String email;
     private String role;
+    private Integer id;
 
     public User() {
     }
@@ -45,5 +46,13 @@ public class User {
 
     public String getRole() {
         return role;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

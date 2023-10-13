@@ -11,14 +11,15 @@ public class Project {
     private String identifier;
     private String start_date;
     private String end_date;
+    private Integer id;
 
     public Project() {
     }
 
-    public Project(String name){
+    public Project(String name, Integer owner_id){
         this.name = name;
         this.description = null;
-        this.owner_id = null;
+        this.owner_id = owner_id;
         this.identifier = null;
         this.start_date = null;
         this.end_date = null;
@@ -60,5 +61,13 @@ public class Project {
 
     public String getEnd_date() {
         return end_date;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

@@ -37,6 +37,15 @@ public class APIUtil {
         return answer.getResult();
     }
 
+    public static <V> Boolean sendRemoveRequest(KanboardMethods method, V params, User user){
+        BaseRequestBody<V> base = new BaseRequestBody<>(method.getMethod(), method.getId(), params);
+
+        Response response = RequestSender.sendRequest(base, user);
+
+        BaseResponse<Boolean> answer = response.getBody().as(BaseResponse.class);
+        return answer.getResult();
+    }
+
     public static <T, V> T sendCreateRequest(KanboardMethods method, V params){
         BaseRequestBody<V> base = new BaseRequestBody<>(method.getMethod(), method.getId(), params);
         ObjectPrinter.print(base);
@@ -45,6 +54,7 @@ public class APIUtil {
         ObjectPrinter.print(response);
 
         BaseResponse<?> answer = response.getBody().as(BaseResponse.class);
+        ObjectPrinter.print(answer.getResult());
         var result = answer.getResult();
         if (result instanceof Boolean || result == null){
             return null;

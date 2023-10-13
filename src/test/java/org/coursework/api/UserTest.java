@@ -15,21 +15,20 @@ public class UserTest {
         int int_random = rand.nextInt(1000);
         User user = new User("newuser"+int_random, "password_123", "Yuliia", "yuliia@gmail.com", "user");
 
-        Integer userId = UserProcedures.createUser(user);
-        UserProcedures.itemIsCreated(userId);
+        UserProcedures.createUser(user);
+        UserProcedures.itemIsCreated(user.getId());
 
-        UserId userIdRequestBody = new UserId(userId);
-        UserExtended userInfo = UserProcedures.getUser(userIdRequestBody);
+        UserExtended userInfo = UserProcedures.getUser(user.getId());
 
         UserProcedures.assertItemField(user.getUsername(), userInfo.getUsername(), FieldsHelper.getUserUsernameField());
         UserProcedures.assertItemField(user.getName(), userInfo.getName(), FieldsHelper.getUserNameField());
         UserProcedures.assertItemField(user.getEmail(), userInfo.getEmail(), FieldsHelper.getUserEmailField());
         UserProcedures.assertItemField(user.getRole(), userInfo.getRole(), FieldsHelper.getUserRoleField());
 
-        boolean isUserRemoved = UserProcedures.removeUser(userIdRequestBody);
+        boolean isUserRemoved = UserProcedures.removeUser(user.getId());
         UserProcedures.itemRemovingRequestIsSuccessful(isUserRemoved);
 
-        UserExtended userInfoAfterRemoving = UserProcedures.getUser(userIdRequestBody);
+        UserExtended userInfoAfterRemoving = UserProcedures.getUser(user.getId());
         UserProcedures.itemIsRemoved(userInfoAfterRemoving);
     }
 }

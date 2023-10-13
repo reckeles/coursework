@@ -20,17 +20,17 @@ import static org.coursework.model.KanboardMethods.*;
 public class UserProcedures extends Procedures {
 
     @Step
-    public static Integer createUser(User user) {
-        return sendCreateRequest(CREATE_USER, user);
+    public static void createUser(User user) {
+        user.setId(sendCreateRequest(CREATE_USER, user));
     }
 
     @Step
-    public static UserExtended getUser(UserId userId) {
-        return sendGetRequest(GET_USER, userId, UserExtended.class);
+    public static UserExtended getUser(Integer id) {
+        return sendGetRequest(GET_USER,  new UserId(id), UserExtended.class);
     }
 
     @Step
-    public static Boolean removeUser(UserId userId) {
-        return sendRemoveRequest(REMOVE_USER, userId);
+    public static Boolean removeUser(Integer id) {
+        return sendRemoveRequest(REMOVE_USER, new UserId(id));
     }
 }

@@ -29,12 +29,17 @@ public class ProjectProcedures extends Procedures {
     }
 
     @Step
-    public static Integer createProject(Project project) {
-        return sendCreateRequest(CREATE_PROJECT, project);
+    public static void createProject(Project project) {
+        project.setId(sendCreateRequest(CREATE_PROJECT, project));
     }
 
     @Step
-    public static Boolean removeProject(ProjectId projectId) {
-        return sendRemoveRequest(REMOVE_PROJECT, projectId);
+    public static Boolean removeProject(Integer id) {
+        return sendRemoveRequest(REMOVE_PROJECT, new ProjectId(id));
+    }
+
+    @Step
+    public static Boolean removeProject(Integer id, User user) {
+        return sendRemoveRequest(REMOVE_PROJECT, new ProjectId(id), user);
     }
 }
