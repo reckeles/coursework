@@ -1,11 +1,10 @@
 package org.coursework.model.user;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-
-import java.lang.reflect.Field;
+import org.coursework.model.Authorization;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class User {
+public class User implements Authorization {
     private String username;
     private String password;
     private String name;
@@ -14,6 +13,13 @@ public class User {
     private Integer id;
 
     public User() {
+    }
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+        this.name = null;
+        this.email = null;
+        this.role = null;
     }
 
     public User(String username,

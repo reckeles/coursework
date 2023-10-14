@@ -1,45 +1,29 @@
 package org.coursework.api;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import io.qameta.allure.Step;
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
-import io.restassured.response.Response;
-import org.coursework.base.BaseAPITest;
-import org.coursework.model.base.BaseRequestBody;
-import org.coursework.model.base.BaseResponse;
+import org.coursework.model.Authorization;
 import org.coursework.model.project.Project;
 import org.coursework.model.project.ProjectExtended;
 import org.coursework.model.project.ProjectId;
-import org.coursework.model.user.User;
-import org.coursework.model.user.UserExtended;
-import org.coursework.model.user.UserId;
-import org.testng.Assert;
 
 import static org.coursework.api.APIUtil.*;
 import static org.coursework.model.KanboardMethods.*;
 
 public class ProjectProcedures extends Procedures {
     @Step
-    public static ProjectExtended getProject(ProjectId projectId) {
-        return sendGetRequest(GET_PROJECT_BY_ID, projectId, ProjectExtended.class);
+    public static ProjectExtended getProjectById(Integer id, Authorization authorization) {
+        return sendGetRequest(GET_PROJECT_BY_ID, new ProjectId(id), ProjectExtended.class, authorization);
     }
 
     @Step
-    public static void createProject(Project project) {
-        project.setId(sendCreateRequest(CREATE_PROJECT, project));
+    public static Project createProject(Project project, Authorization authorization) {
+        Integer id = sendCreateRequest(CREATE_PROJECT, project, authorization);
+        project.setId(id);
+        return project;
     }
 
     @Step
-    public static Boolean removeProject(Integer id) {
-        return sendRemoveRequest(REMOVE_PROJECT, new ProjectId(id));
-    }
-
-    @Step
-    public static Boolean removeProject(Integer id, User user) {
-        return sendRemoveRequest(REMOVE_PROJECT, new ProjectId(id), user);
+    public static Boolean removeProjectById(Integer id, Authorization authorization) {
+        return sendRemoveRequest(REMOVE_PROJECT, new ProjectId(id), authorization);
     }
 }

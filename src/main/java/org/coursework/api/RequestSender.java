@@ -3,38 +3,34 @@ package org.coursework.api;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.coursework.base.BaseAPITest;
-import org.coursework.model.user.User;
+import org.coursework.model.Authorization;
 
-import static org.coursework.config.EnvConfig.API_PASSWORD;
-import static org.coursework.config.EnvConfig.API_USERNAME;
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import static org.coursework.config.EnvConfig.*;
 
 public class RequestSender {
-    public static <T> Response sendRequest(T body){
+    public static <T> Response sendRequest(T body, Authorization credentials) {
         return RestAssured.given().auth()
-                .basic(API_USERNAME.value, API_PASSWORD.value)
+                .basic(credentials.getUsername(), credentials.getPassword())
                 .and()
                 .contentType(ContentType.JSON)
                 .and()
                 .body(body)
                 .when()
-                .post(BaseAPITest.getAPIURL())
+                .post(getAPIURL())
                 .then()
                 .statusCode(200)
                 .extract().response();
     }
 
-    public static <T> Response sendRequest(T body, User user){
-        return RestAssured.given().auth()
-                .basic(user.getUsername(), user.getPassword())
-                .and()
-                .contentType(ContentType.JSON)
-                .and()
-                .body(body)
-                .when()
-                .post(BaseAPITest.getAPIURL())
-                .then()
-                .statusCode(200)
-                .extract().response();
+    static private URI getAPIURL() {
+        String url = HTTP_BASE_PROTOCOL.value + "://" + HTTP_BASE_URL.value + ":" + HTTP_BASE_PORT.value + "/jsonrpc.php";
+        try {
+            return new URI(url);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException("URL has wrong format: " + url, e);
+        }
     }
 }

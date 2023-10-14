@@ -1,45 +1,44 @@
 package org.coursework.api;
 
+import org.coursework.base.BaseAPITest;
 import org.coursework.model.project.Project;
 import org.coursework.model.task.Task;
 import org.coursework.model.task.TaskExtended;
-import org.coursework.model.task.TaskId;
+import org.coursework.model.user.User;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.Random;
-
+import static org.coursework.api.ProjectProcedures.*;
+import static org.coursework.api.TaskProcedures.*;
+import static org.coursework.api.UserProcedures.*;
 import static org.coursework.utils.FieldsHelper.getTaskTitleField;
+import static org.coursework.utils.TestData.*;
 
-public class TaskTest {
+public class TaskTest extends BaseAPITest {
     Project project;
-    @BeforeMethod
-    public void before(){
-        Random rand = new Random();
-        int int_random = rand.nextInt(1000);
-        project = new Project("project"+int_random, null, 1, null, null, null);
+    User user;
 
-        ProjectProcedures.createProject(project);
-        ProjectProcedures.itemIsCreated(project.getId());
+    @BeforeMethod(alwaysRun = true)
+    public void before() {
+        user = createUser(generateDefaultUserData(), admin);
+        project = createProject(generateProjectWithOwnerData(user.getId()), user);
     }
 
-    @Test
-    public void taskFlow(){
-        Random rand = new Random();
-        int int_random = rand.nextInt(1000);
-        Task task =  new Task("task"+int_random, project.getId());
+    @Test(groups = {"CRUD_task_API", "API", "smoke", "regression"})
+    public void taskFlow() {
+        Task task = createTask(generateDefaultTaskData(project.getId()), user);
 
-        Integer taskId = TaskProcedures.createTask(task);
-        TaskProcedures.itemIsCreated(taskId);
+        TaskExtended taskInfo = getTaskById(task.getId(), user);
+        assertItemField(task.getTitle(), taskInfo.getTitle(), getTaskTitleField());
 
-        TaskId taskIdRequestBody = new TaskId(taskId);
-        TaskExtended taskInfo = TaskProcedures.getTask(taskIdRequestBody);
+        boolean isTaskRemoved = removeTaskById(task.getId(), user);
+        itemRemovingRequestIsSuccessful(isTaskRemoved);
+    }
 
-        TaskProcedures.assertItemField(task.getTitle(), taskInfo.getTitle(), getTaskTitleField());
-
-        boolean isTaskRemoved = TaskProcedures.removeTask(taskIdRequestBody);
-        TaskProcedures.itemRemovingRequestIsSuccessful(isTaskRemoved);
-
-        //TO DO - add assert on 403 error for request?????? is it good approach?????
+    @AfterMethod(alwaysRun = true)
+    public void after() {
+        removeProjectById(project.getId(), user);
+        removeUserById(user.getId(), admin);
     }
 }

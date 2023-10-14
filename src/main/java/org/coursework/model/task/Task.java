@@ -24,6 +24,7 @@ public class Task {
     private String reference;
     private String[] tags;
     private String date_started;
+    private Integer id;
 
     public Task() {
     }
@@ -192,5 +193,13 @@ public class Task {
 
     public String getDate_started() {
         return date_started;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

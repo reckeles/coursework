@@ -1,9 +1,7 @@
 package org.coursework.api;
 
 import io.qameta.allure.Step;
-import org.coursework.model.project.Project;
-import org.coursework.model.project.ProjectExtended;
-import org.coursework.model.project.ProjectId;
+import org.coursework.model.Authorization;
 import org.coursework.model.task.Task;
 import org.coursework.model.task.TaskExtended;
 import org.coursework.model.task.TaskId;
@@ -14,17 +12,20 @@ import static org.coursework.model.KanboardMethods.*;
 public class TaskProcedures extends Procedures {
 
     @Step
-    public static TaskExtended getTask(TaskId taskId) {
-        return sendGetRequest(GET_TASK, taskId, TaskExtended.class);
+    public static TaskExtended getTaskById(Integer id, Authorization authorization) {
+        return sendGetRequest(GET_TASK, new TaskId(id), TaskExtended.class, authorization);
     }
 
     @Step
-    public static Integer createTask(Task task) {
-        return sendCreateRequest(CREATE_TASK, task);
+    public static Task createTask(Task task, Authorization authorization) {
+        Integer id = sendCreateRequest(CREATE_TASK, task, authorization);
+        task.setId(id);
+        return task;
     }
 
     @Step
-    public static Boolean removeTask(TaskId taskId) {
-        return sendRemoveRequest(REMOVE_TASK, taskId);
+    public static Boolean removeTaskById(Integer id, Authorization authorization) {
+
+        return sendRemoveRequest(REMOVE_TASK, new TaskId(id), authorization);
     }
 }

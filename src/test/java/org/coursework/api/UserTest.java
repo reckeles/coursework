@@ -1,34 +1,29 @@
 package org.coursework.api;
 
+import org.coursework.base.BaseAPITest;
 import org.coursework.model.user.User;
-import org.coursework.model.user.UserId;
 import org.coursework.model.user.UserExtended;
 import org.coursework.utils.FieldsHelper;
 import org.testng.annotations.Test;
 
-import java.util.Random;
+import static org.coursework.api.UserProcedures.*;
+import static org.coursework.utils.TestData.generateDefaultUserData;
 
-public class UserTest {
-    @Test
+public class UserTest extends BaseAPITest {
+    @Test(groups = {"CRUD_user_API", "API", "smoke", "regression"})
     public void userFlow() {
-        Random rand = new Random();
-        int int_random = rand.nextInt(1000);
-        User user = new User("newuser"+int_random, "password_123", "Yuliia", "yuliia@gmail.com", "user");
+        User user = createUser(generateDefaultUserData(), admin);
 
-        UserProcedures.createUser(user);
-        UserProcedures.itemIsCreated(user.getId());
+        UserExtended userInfo = getUserById(user.getId(), admin);
+        assertItemField(user.getUsername(), userInfo.getUsername(), FieldsHelper.getUserUsernameField());
+        assertItemField(user.getName(), userInfo.getName(), FieldsHelper.getUserNameField());
+        assertItemField(user.getEmail(), userInfo.getEmail(), FieldsHelper.getUserEmailField());
+        assertItemField(user.getRole(), userInfo.getRole(), FieldsHelper.getUserRoleField());
 
-        UserExtended userInfo = UserProcedures.getUser(user.getId());
+        boolean isUserRemoved = removeUserById(user.getId(), admin);
+        itemRemovingRequestIsSuccessful(isUserRemoved);
 
-        UserProcedures.assertItemField(user.getUsername(), userInfo.getUsername(), FieldsHelper.getUserUsernameField());
-        UserProcedures.assertItemField(user.getName(), userInfo.getName(), FieldsHelper.getUserNameField());
-        UserProcedures.assertItemField(user.getEmail(), userInfo.getEmail(), FieldsHelper.getUserEmailField());
-        UserProcedures.assertItemField(user.getRole(), userInfo.getRole(), FieldsHelper.getUserRoleField());
-
-        boolean isUserRemoved = UserProcedures.removeUser(user.getId());
-        UserProcedures.itemRemovingRequestIsSuccessful(isUserRemoved);
-
-        UserExtended userInfoAfterRemoving = UserProcedures.getUser(user.getId());
-        UserProcedures.itemIsRemoved(userInfoAfterRemoving);
+        UserExtended userInfoAfterRemoving = getUserById(user.getId(), admin);
+        itemIsRemoved(userInfoAfterRemoving);
     }
 }

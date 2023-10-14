@@ -1,51 +1,56 @@
 package org.coursework.ui;
 
-import com.codeborne.selenide.WebDriverRunner;
-import org.coursework.Session;
 import org.coursework.base.BaseGUITest;
-import org.coursework.config.EnvConfig;
+import org.coursework.model.user.User;
 import org.coursework.page.DashboardPage;
 import org.coursework.page.LoginPage;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
+
+import static org.coursework.api.UserProcedures.createUser;
+import static org.coursework.api.UserProcedures.removeUserById;
+import static org.coursework.utils.TestData.generateDefaultUserData;
+import static org.coursework.utils.TestData.getRandomStr;
 
 
 public class LoginTest extends BaseGUITest {
     private LoginPage loginPage = new LoginPage();
     private DashboardPage dashboardPage = new DashboardPage();
+    private User user;
+
     @BeforeMethod(alwaysRun = true)
-    public void before() {
-        System.out.println("Login before");
+    public void beforeMethod() {
+        user = createUser(generateDefaultUserData(), admin);
         setWebDriver();
     }
 
-    @Test(groups = { "smoke", "regression", "authflow" })
+    @Test(groups = {"authflow", "UI", "smoke", "regression"})
     public void loginValidUser() {
-        loginPage.login("admin", "admin");
+        loginPage.login(user.getUsername(), user.getPassword());
         dashboardPage.searchVisible();
     }
 
-    @Test(groups = { "regression", "authflow" })
+    @Test(groups = {"authflow", "UI", "regression"})
     public void loginEmptyUsernameField() {
-        loginPage.loginWithoutPassword("admin");
+        loginPage.loginWithoutPassword(user.getUsername());
         loginPage.usernameIsRequired();
     }
 
-    @Test(groups = { "regression", "authflow" })
+    @Test(groups = {"authflow", "UI", "regression"})
     public void loginEmptyPasswordField() {
-        loginPage.loginWithoutUsername("admin");
+        loginPage.loginWithoutUsername(user.getPassword());
         loginPage.passwordIsRequired();
     }
 
-    @Test(groups = { "smoke", "regression", "authflow" })
-    public void loginInvalidUser() {
-        loginPage.login("admin1", "admin");
+    @Test(groups = {"authflow", "UI", "smoke", "regression"})
+    public void loginWithInvalidPassword() {
+        loginPage.login(user.getUsername(), getRandomStr());
         loginPage.assertBadCredsAlertIsPresent();
     }
 
     @AfterMethod(alwaysRun = true)
-    public void after() {
+    public void afterMethod() {
         closeWebDriver();
+        removeUserById(user.getId(), admin);
+        user = null;
     }
 }

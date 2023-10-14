@@ -1,6 +1,5 @@
 package org.coursework;
 
-import org.coursework.config.EnvConfig;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -13,7 +12,7 @@ import java.util.Map;
 public class Session {
     static final private ThreadLocal<Session> _instance = new ThreadLocal<>();
     private WebDriver _webdriver;
-    private final boolean HEADLESS_FLAG =  setHeadlessFlag();
+    private final boolean HEADLESS_FLAG = setHeadlessFlag();
     private final String WEB_BROWSER = setWebBrowser();
 
     static public Session get() {
@@ -70,22 +69,21 @@ public class Session {
     }
 
     //TO DO - refactor if has time
-    private boolean setHeadlessFlag(){
+    private boolean setHeadlessFlag() {
         String property = System.getProperty("headless");
-        if(property==null){
+        if (property == null) {
             return true;
         }
         return Boolean.valueOf(property);
     }
 
-    private String setWebBrowser(){
+    private String setWebBrowser() {
         String property = System.getProperty("browser");
         String chrome = "chrome";
         String firefox = "firefox";
-        if(property==null){
+        if (property == null) {
             return chrome;
-        }
-        else if (property.equalsIgnoreCase(chrome) || property.equalsIgnoreCase(firefox)){
+        } else if (property.equalsIgnoreCase(chrome) || property.equalsIgnoreCase(firefox)) {
             return property;
         }
         return chrome;
