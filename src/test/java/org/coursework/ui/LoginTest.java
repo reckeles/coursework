@@ -2,8 +2,8 @@ package org.coursework.ui;
 
 import org.coursework.base.BaseGUITest;
 import org.coursework.model.user.User;
-import org.coursework.page.DashboardPage;
-import org.coursework.page.LoginPage;
+import org.coursework.page.logged_in.DashboardPage;
+import org.coursework.page.auth.LoginPage;
 import org.testng.annotations.*;
 
 import static org.coursework.api.UserProcedures.createUser;
@@ -14,7 +14,7 @@ import static org.coursework.utils.TestData.getRandomStr;
 
 public class LoginTest extends BaseGUITest {
     private LoginPage loginPage = new LoginPage();
-    private DashboardPage dashboardPage = new DashboardPage();
+    private DashboardPage dashboardPage;
     private User user;
 
     @BeforeMethod(alwaysRun = true)
@@ -25,7 +25,7 @@ public class LoginTest extends BaseGUITest {
 
     @Test(groups = {"authflow", "UI", "smoke", "regression"})
     public void loginValidUser() {
-        loginPage.login(user.getUsername(), user.getPassword());
+        dashboardPage = loginPage.login(user.getUsername(), user.getPassword());
         dashboardPage.searchVisible();
     }
 

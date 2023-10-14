@@ -3,8 +3,8 @@ package org.coursework.ui;
 import org.coursework.base.BaseGUITest;
 import org.coursework.model.project.Project;
 import org.coursework.model.user.User;
-import org.coursework.page.BoardPage;
-import org.coursework.page.CreateTaskPage;
+import org.coursework.page.logged_in.BoardPage;
+import org.coursework.page.logged_in.modal_windows.CreateTaskModalWindow;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -18,7 +18,7 @@ import static org.coursework.utils.TestData.*;
 public class CreateTaskTest extends BaseGUITest {
 
     private BoardPage boardPage = new BoardPage();
-    private CreateTaskPage createTaskPage = new CreateTaskPage();
+    private CreateTaskModalWindow createTaskModalWindow;
     private User user;
     private Project project;
 
@@ -32,12 +32,12 @@ public class CreateTaskTest extends BaseGUITest {
         login(user.getUsername(), user.getPassword());
     }
 
-    @Test(groups = {"smoke", "regression", "CRUD_task_UI"})
+    @Test(groups = {"CRUD_task_UI", "UI", "smoke", "regression"})
     public void createTask() {
         boardPage.openPage(project.getId());
         String taskName = getRandomStr();
-        boardPage.openAddTaskFormFromBacklog();
-        createTaskPage.createTaskOnlyRequiredFields(taskName);
+        createTaskModalWindow = boardPage.openAddTaskFormFromBacklog();
+        boardPage = createTaskModalWindow.createTaskOnlyRequiredFields(taskName);
         boardPage.assertThatTaskNameIsSameAsAddedTask(taskName);
     }
 

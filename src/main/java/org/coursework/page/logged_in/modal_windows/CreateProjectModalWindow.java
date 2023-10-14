@@ -1,22 +1,25 @@
-package org.coursework.page;
+package org.coursework.page.logged_in.modal_windows;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
+import org.coursework.page.common.ModalWindow;
+import org.coursework.page.logged_in.ProjectPage;
 
-public class CreateProjectPage {
+import static com.codeborne.selenide.Selenide.page;
+
+public class CreateProjectModalWindow extends ModalWindow {
 
     private SelenideElement nameInput = Selenide.$("input#form-name");
     private SelenideElement idInput = Selenide.$("input#form-identifier");
     private SelenideElement perSwimlaneTaskLimitsCheckbox = Selenide.$x("//input[@name='per_swimlane_task_limits']");
     private SelenideElement taskLimitInput = Selenide.$("input#form-task_limit");
-    private SelenideElement submitButton = Selenide.$x("//form[@id='project-creation-form']//button");
-    private SelenideElement cancelButton = Selenide.$x("//form[@id='project-creation-form']//a");
 
     @Step
-    public void createProjectOnlyRequiredFields(String name){
+    public ProjectPage createProjectOnlyRequiredFields(String name){
         nameInput.sendKeys(name);
         submitButton.click();
+        return page(ProjectPage.class);
     }
 
     @Step

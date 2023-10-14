@@ -37,10 +37,8 @@ public class APIUtil {
         BaseRequestBody<V> base = new BaseRequestBody<>(method.getMethod(), method.getId(), params);
 
         Response response = RequestSender.sendRequest(base, authorization);
-        ObjectPrinter.print("response " + response);
 
         BaseResponse<?> answer = response.getBody().as(BaseResponse.class);
-        ObjectPrinter.print(answer.getResult());
         var result = answer.getResult();
         if (result instanceof Boolean || result == null) {
             throw new RuntimeException("Item wasn't created. Create Request failed. Status code: " + response.getStatusCode() + " Body: " + response.getBody().print());

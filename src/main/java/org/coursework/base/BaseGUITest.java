@@ -4,11 +4,11 @@ import com.codeborne.selenide.WebDriverRunner;
 import org.coursework.config.EnvConfig;
 import org.coursework.Session;
 import org.coursework.model.user.User;
-import org.coursework.page.DashboardPage;
-import org.coursework.page.LoginPage;
+import org.coursework.page.logged_in.DashboardPage;
+import org.coursework.page.auth.LoginPage;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.*;
 
+import static com.codeborne.selenide.Selenide.page;
 import static org.coursework.config.EnvConfig.ADMIN_PASSWORD;
 import static org.coursework.config.EnvConfig.ADMIN_USERNAME;
 
@@ -23,11 +23,12 @@ public class BaseGUITest {
         Session.get().close();
     }
 
-    protected void login(String username, String password){
+    protected DashboardPage login(String username, String password){
         LoginPage loginPage = new LoginPage();
         DashboardPage dashboardPage = new DashboardPage();
         loginPage.login(username, password);
         dashboardPage.searchVisible();
+        return page(DashboardPage.class);
     }
 
     protected WebDriver wd() {
