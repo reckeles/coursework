@@ -2,6 +2,7 @@ package org.coursework.ui;
 
 import org.coursework.base.BaseGUITest;
 import org.coursework.page.logged_in.TaskPage;
+import org.coursework.page.logged_in.modal_windows.task.AddCommentToTaskModalWindow;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -36,14 +37,14 @@ public class CommentsTaskTest extends BaseGUITest {
         TaskPage taskPage = new TaskPage();
         taskPage.setTaskId(task.getId());
         taskPage.openPage();
+        AddCommentToTaskModalWindow addCommentToTaskModalWindow = taskPage.openAddCommentModalWindow();
 
+        String comment = getRandomStr();
+        taskPage = addCommentToTaskModalWindow.addCommentWithoutEmail(comment);
 
-
-        //add coment
-        // soft assert username is right
-        //soft assert comment text is right
-        //soft assert dates are right(????)
-
+        taskPage.assertCommentCreatorIsSameAsExpected(user.getUsername());
+        taskPage.assertCommentTextIsSameAsExpected(comment);
+        //TODO add assertion for dates in comment
     }
 
     @Test(groups = {"CRUD_task_UI", "UI", "regression"})
@@ -52,11 +53,12 @@ public class CommentsTaskTest extends BaseGUITest {
         taskPage.setTaskId(task.getId());
         taskPage.openPage();
 
-        //add coment via modal
-        // add comment via form
-        //soft assert username is right
-        //soft assert comment text is right
-        //soft assert dates are right(????)
+        String comment = getRandomStr();
+        taskPage.addComment(comment);
+
+        taskPage.assertCommentCreatorIsSameAsExpected(user.getUsername());
+        taskPage.assertCommentTextIsSameAsExpected(comment);
+        //TODO add assertion for dates in comment
     }
 
     @AfterMethod(alwaysRun = true)

@@ -17,8 +17,13 @@ public class TestData {
         return rand.nextInt(100000);
     }
 
+    private static int getRandomInt(int range) {
+        Random rand = new Random();
+        return rand.nextInt(range);
+    }
+
     public static String getRandomStr() {
-        int length = 20;
+        int length = getRandomInt(50);
         boolean useLetters = true;
         boolean useNumbers = false;
         return RandomStringUtils.random(length, useLetters, useNumbers);
