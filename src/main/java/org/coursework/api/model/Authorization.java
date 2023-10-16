@@ -1,4 +1,4 @@
-package org.coursework.model;
+package org.coursework.api.model;
 
 public interface Authorization {
     String getUsername();

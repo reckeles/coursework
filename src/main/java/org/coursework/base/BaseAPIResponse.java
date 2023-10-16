@@ -1,18 +1,17 @@
-package org.coursework.model.base;
+package org.coursework.base;
 
-public class BaseResponse<T> {
+public class BaseAPIResponse<T> {
     private String jsonrpc;
     private long id;
     private T result;
 
-
-    public BaseResponse(){
+    public BaseAPIResponse() {
     }
 
-    public BaseResponse(String jsonrpc, long id, T result){
+    public BaseAPIResponse(String jsonrpc, long id, T result) {
         this.jsonrpc = jsonrpc;
-        this.id=id;
-        this.result=result;
+        this.id = id;
+        this.result = result;
     }
 
     public String getJsonrpc() {

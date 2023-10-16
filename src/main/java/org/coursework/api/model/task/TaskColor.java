@@ -1,4 +1,4 @@
-package org.coursework.model.task;
+package org.coursework.api.model.task;
 
 public class TaskColor {
     private String name;

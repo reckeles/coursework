@@ -1,4 +1,4 @@
-package org.coursework.model.project;
+package org.coursework.api.model.project;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

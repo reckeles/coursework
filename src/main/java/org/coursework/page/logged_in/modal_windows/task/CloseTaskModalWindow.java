@@ -11,8 +11,9 @@ import static com.codeborne.selenide.Selenide.page;
 
 public class CloseTaskModalWindow extends ModalWindow {
     private SelenideElement submitButton = Selenide.$x("//div[@id='modal-overlay']//button[@id='modal-confirm-button']");
+
     @Step
-    public TaskPage confirmCloseAction(){
+    public TaskPage confirmCloseAction() {
         submitButton.shouldBe(visible);
         submitButton.click();
         return page(TaskPage.class);

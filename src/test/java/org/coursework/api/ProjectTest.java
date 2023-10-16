@@ -1,16 +1,16 @@
 package org.coursework.api;
 
 import org.coursework.base.BaseAPITest;
-import org.coursework.model.project.Project;
-import org.coursework.model.project.ProjectExtended;
-import org.coursework.model.user.User;
+import org.coursework.api.model.project.Project;
+import org.coursework.api.model.project.ProjectExtended;
+import org.coursework.api.model.user.User;
 import org.coursework.utils.FieldsHelper;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import static org.coursework.api.ProjectProcedures.*;
-import static org.coursework.api.UserProcedures.*;
+import static org.coursework.api.procedures.ProjectProcedures.*;
+import static org.coursework.api.procedures.UserProcedures.*;
 import static org.coursework.utils.TestData.*;
 
 public class ProjectTest extends BaseAPITest {

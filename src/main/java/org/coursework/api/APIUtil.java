@@ -2,20 +2,19 @@ package org.coursework.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.response.Response;
-import org.coursework.model.KanboardMethods;
-import org.coursework.model.Authorization;
-import org.coursework.model.base.BaseRequestBody;
-import org.coursework.model.base.BaseResponse;
-import org.coursework.utils.ObjectPrinter;
+import org.coursework.api.model.KanboardMethods;
+import org.coursework.api.model.Authorization;
+import org.coursework.base.BaseAPIRequestBody;
+import org.coursework.base.BaseAPIResponse;
 
 public class APIUtil {
 
     public static <T, V> T sendGetRequest(KanboardMethods method, V params, Class<T> toValueTypeRef, Authorization authorization) {
-        BaseRequestBody<V> base = new BaseRequestBody<>(method.getMethod(), method.getId(), params);
+        BaseAPIRequestBody<V> base = new BaseAPIRequestBody<>(method.getMethod(), method.getId(), params);
 
         Response response = RequestSender.sendRequest(base, authorization);
 
-        BaseResponse<T> answer = response.getBody().as(BaseResponse.class);
+        BaseAPIResponse<T> answer = response.getBody().as(BaseAPIResponse.class);
 
         ObjectMapper mapper = new ObjectMapper();
         return mapper.convertValue(
@@ -25,25 +24,24 @@ public class APIUtil {
     }
 
     public static <V> Boolean sendRemoveRequest(KanboardMethods method, V params, Authorization authorization) {
-        BaseRequestBody<V> base = new BaseRequestBody<>(method.getMethod(), method.getId(), params);
+        BaseAPIRequestBody<V> base = new BaseAPIRequestBody<>(method.getMethod(), method.getId(), params);
 
         Response response = RequestSender.sendRequest(base, authorization);
 
-        BaseResponse<Boolean> answer = response.getBody().as(BaseResponse.class);
-        if(answer.getResult()){
+        BaseAPIResponse<Boolean> answer = response.getBody().as(BaseAPIResponse.class);
+        if (answer.getResult()) {
             return answer.getResult();
-        }
-        else {
+        } else {
             throw new RuntimeException("Item wasn't deleted");
         }
     }
 
     public static <T, V> T sendCreateRequest(KanboardMethods method, V params, Authorization authorization) {
-        BaseRequestBody<V> base = new BaseRequestBody<>(method.getMethod(), method.getId(), params);
+        BaseAPIRequestBody<V> base = new BaseAPIRequestBody<>(method.getMethod(), method.getId(), params);
 
         Response response = RequestSender.sendRequest(base, authorization);
 
-        BaseResponse<?> answer = response.getBody().as(BaseResponse.class);
+        BaseAPIResponse<?> answer = response.getBody().as(BaseAPIResponse.class);
         var result = answer.getResult();
         if (result instanceof Boolean || result == null) {
             throw new RuntimeException("Item wasn't created. Create Request failed. Status code: " + response.getStatusCode() + " Body: " + response.getBody().print());

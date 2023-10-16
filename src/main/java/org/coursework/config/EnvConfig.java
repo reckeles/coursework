@@ -1,5 +1,9 @@
 package org.coursework.config;
 
+import org.coursework.base.BaseConfig;
+import org.coursework.config.common.Param;
+import org.coursework.config.enums.Environment;
+
 import java.util.Properties;
 
 public class EnvConfig extends BaseConfig {

@@ -1,12 +1,12 @@
 package org.coursework.api;
 
 import org.coursework.base.BaseAPITest;
-import org.coursework.model.user.User;
-import org.coursework.model.user.UserExtended;
+import org.coursework.api.model.user.User;
+import org.coursework.api.model.user.UserExtended;
 import org.coursework.utils.FieldsHelper;
 import org.testng.annotations.Test;
 
-import static org.coursework.api.UserProcedures.*;
+import static org.coursework.api.procedures.UserProcedures.*;
 import static org.coursework.utils.TestData.generateDefaultUserData;
 
 public class UserTest extends BaseAPITest {

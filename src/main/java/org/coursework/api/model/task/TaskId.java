@@ -1,4 +1,4 @@
-package org.coursework.model.task;
+package org.coursework.api.model.task;
 
 public class TaskId {
     private int task_id;

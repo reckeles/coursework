@@ -1,18 +1,18 @@
-package org.coursework.model.base;
+package org.coursework.base;
 
 import org.coursework.config.EnvConfig;
 
-public class BaseRequestBody<T> {
+public class BaseAPIRequestBody<T> {
     private String jsonrpc;
     private String method;
     private long id;
     private T params;
 
-    public BaseRequestBody(String method, long id, T params){
+    public BaseAPIRequestBody(String method, long id, T params) {
         this.jsonrpc = EnvConfig.JSONRPC_VERSION.value;
-        this.method=method;
-        this.id=id;
-        this.params=params;
+        this.method = method;
+        this.id = id;
+        this.params = params;
     }
 
     public String getJsonrpc() {

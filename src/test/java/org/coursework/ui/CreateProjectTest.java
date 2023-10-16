@@ -1,8 +1,7 @@
 package org.coursework.ui;
 
-import org.coursework.api.ProjectProcedures;
 import org.coursework.base.BaseGUITest;
-import org.coursework.model.user.User;
+import org.coursework.api.model.user.User;
 import org.coursework.page.logged_in.modal_windows.CreateProjectModalWindow;
 import org.coursework.page.logged_in.DashboardPage;
 import org.coursework.page.logged_in.ProjectPage;
@@ -10,16 +9,13 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static org.coursework.api.ProjectProcedures.removeProjectById;
-import static org.coursework.api.UserProcedures.createUser;
-import static org.coursework.api.UserProcedures.removeUserById;
+import static org.coursework.api.procedures.ProjectProcedures.removeProjectById;
+import static org.coursework.api.procedures.UserProcedures.createUser;
+import static org.coursework.api.procedures.UserProcedures.removeUserById;
 import static org.coursework.utils.TestData.generateDefaultUserData;
 import static org.coursework.utils.TestData.getRandomStr;
 
 public class CreateProjectTest extends BaseGUITest {
-    private DashboardPage dashboardPage;
-    private CreateProjectModalWindow createProjectModalWindow;
-    private ProjectPage projectPage;
     private int projectId;
     User user;
 
@@ -33,10 +29,10 @@ public class CreateProjectTest extends BaseGUITest {
 
     @Test(groups = {"CRUD_project_UI", "UI", "smoke", "regression"})
     public void createProject() {
-        dashboardPage = new DashboardPage();
+        DashboardPage dashboardPage = new DashboardPage();
         dashboardPage.openPage();
-        createProjectModalWindow = dashboardPage.openCreateProjectWindow();
-        projectPage = createProjectModalWindow.createProjectOnlyRequiredFields(getRandomStr());
+        CreateProjectModalWindow createProjectModalWindow = dashboardPage.openCreateProjectWindow();
+        ProjectPage projectPage = createProjectModalWindow.createProjectOnlyRequiredFields(getRandomStr());
         projectPage.confirmPageIsLoaded();
         projectPage.assertPageUrlIsRight();
         projectId = projectPage.getProjectId();

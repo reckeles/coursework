@@ -1,15 +1,16 @@
-package org.coursework.api;
+package org.coursework.api.procedures;
 
 import io.qameta.allure.Step;
-import org.coursework.model.Authorization;
-import org.coursework.model.task.Task;
-import org.coursework.model.task.TaskExtended;
-import org.coursework.model.task.TaskId;
+import org.coursework.base.BaseAPIProcedures;
+import org.coursework.api.model.Authorization;
+import org.coursework.api.model.task.Task;
+import org.coursework.api.model.task.TaskExtended;
+import org.coursework.api.model.task.TaskId;
 
 import static org.coursework.api.APIUtil.*;
-import static org.coursework.model.KanboardMethods.*;
+import static org.coursework.api.model.KanboardMethods.*;
 
-public class TaskProcedures extends Procedures {
+public class TaskProcedures extends BaseAPIProcedures {
 
     @Step
     public static TaskExtended getTaskById(Integer id, Authorization authorization) {

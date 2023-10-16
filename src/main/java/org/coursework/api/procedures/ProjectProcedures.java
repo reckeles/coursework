@@ -1,15 +1,16 @@
-package org.coursework.api;
+package org.coursework.api.procedures;
 
 import io.qameta.allure.Step;
-import org.coursework.model.Authorization;
-import org.coursework.model.project.Project;
-import org.coursework.model.project.ProjectExtended;
-import org.coursework.model.project.ProjectId;
+import org.coursework.base.BaseAPIProcedures;
+import org.coursework.api.model.Authorization;
+import org.coursework.api.model.project.Project;
+import org.coursework.api.model.project.ProjectExtended;
+import org.coursework.api.model.project.ProjectId;
 
 import static org.coursework.api.APIUtil.*;
-import static org.coursework.model.KanboardMethods.*;
+import static org.coursework.api.model.KanboardMethods.*;
 
-public class ProjectProcedures extends Procedures {
+public class ProjectProcedures extends BaseAPIProcedures {
     @Step
     public static ProjectExtended getProjectById(Integer id, Authorization authorization) {
         return sendGetRequest(GET_PROJECT_BY_ID, new ProjectId(id), ProjectExtended.class, authorization);

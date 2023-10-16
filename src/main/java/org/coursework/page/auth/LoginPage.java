@@ -62,6 +62,6 @@ public class LoginPage extends BasePage {
 
     @Override
     public void openPage() {
-        open(EnvConfig.getBaseURL()+"/login");
+        open(EnvConfig.getBaseURL() + "/login");
     }
 }

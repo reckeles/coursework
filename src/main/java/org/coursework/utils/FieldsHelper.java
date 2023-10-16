@@ -1,8 +1,8 @@
 package org.coursework.utils;
 
-import org.coursework.model.project.Project;
-import org.coursework.model.task.Task;
-import org.coursework.model.user.User;
+import org.coursework.api.model.project.Project;
+import org.coursework.api.model.task.Task;
+import org.coursework.api.model.user.User;
 
 import java.lang.reflect.Field;
 

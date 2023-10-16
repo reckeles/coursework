@@ -1,4 +1,6 @@
-package org.coursework.config;
+package org.coursework.config.common;
+
+import org.coursework.base.BaseConfig;
 
 import java.util.Properties;
 

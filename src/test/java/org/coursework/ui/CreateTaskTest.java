@@ -1,18 +1,18 @@
 package org.coursework.ui;
 
 import org.coursework.base.BaseGUITest;
-import org.coursework.model.project.Project;
-import org.coursework.model.user.User;
+import org.coursework.api.model.project.Project;
+import org.coursework.api.model.user.User;
 import org.coursework.page.logged_in.BoardPage;
 import org.coursework.page.logged_in.modal_windows.CreateTaskModalWindow;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static org.coursework.api.ProjectProcedures.createProject;
-import static org.coursework.api.ProjectProcedures.removeProjectById;
-import static org.coursework.api.UserProcedures.createUser;
-import static org.coursework.api.UserProcedures.removeUserById;
+import static org.coursework.api.procedures.ProjectProcedures.createProject;
+import static org.coursework.api.procedures.ProjectProcedures.removeProjectById;
+import static org.coursework.api.procedures.UserProcedures.createUser;
+import static org.coursework.api.procedures.UserProcedures.removeUserById;
 import static org.coursework.utils.TestData.*;
 
 public class CreateTaskTest extends BaseGUITest {

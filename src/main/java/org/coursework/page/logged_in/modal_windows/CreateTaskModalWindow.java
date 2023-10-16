@@ -15,6 +15,8 @@ public class CreateTaskModalWindow extends ModalWindow {
         submitButton.click();
         return page(BoardPage.class);
     }
-    public void createTaskAllFields(){}
+    public void createTaskAllFields(){
+        //TODO
+    }
 
 }

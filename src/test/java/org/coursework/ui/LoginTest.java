@@ -1,13 +1,13 @@
 package org.coursework.ui;
 
 import org.coursework.base.BaseGUITest;
-import org.coursework.model.user.User;
+import org.coursework.api.model.user.User;
 import org.coursework.page.logged_in.DashboardPage;
 import org.coursework.page.auth.LoginPage;
 import org.testng.annotations.*;
 
-import static org.coursework.api.UserProcedures.createUser;
-import static org.coursework.api.UserProcedures.removeUserById;
+import static org.coursework.api.procedures.UserProcedures.createUser;
+import static org.coursework.api.procedures.UserProcedures.removeUserById;
 import static org.coursework.utils.TestData.generateDefaultUserData;
 import static org.coursework.utils.TestData.getRandomStr;
 

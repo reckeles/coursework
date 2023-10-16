@@ -12,14 +12,14 @@ public class AddCommentToTaskModalWindow extends ModalWindow {
     private SelenideElement textComment = $x("//div[@id='modal-content']//textarea[@name='comment']");
 
     @Step
-    public TaskPage addCommentWithoutEmail(String comment){
+    public TaskPage addCommentWithoutEmail(String comment) {
         textComment.sendKeys(comment);
         submitButton.click();
         return page(TaskPage.class);
     }
 
     @Step
-    public TaskPage addCommentWithEmail(String comment){
+    public TaskPage addCommentWithEmail(String comment) {
         return page(TaskPage.class);
     }
 

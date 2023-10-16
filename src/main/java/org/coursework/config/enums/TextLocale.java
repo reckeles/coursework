@@ -1,4 +1,4 @@
-package org.coursework.config;
+package org.coursework.config.enums;
 
 public enum TextLocale {
     EN;

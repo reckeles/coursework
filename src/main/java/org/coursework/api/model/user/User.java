@@ -1,7 +1,7 @@
-package org.coursework.model.user;
+package org.coursework.api.model.user;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.coursework.model.Authorization;
+import org.coursework.api.model.Authorization;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class User implements Authorization {

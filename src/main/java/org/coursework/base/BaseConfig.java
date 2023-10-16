@@ -1,4 +1,6 @@
-package org.coursework.config;
+package org.coursework.base;
+
+import org.coursework.config.EnvConfig;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,7 +31,7 @@ public class BaseConfig {
         return props;
     }
 
-    static final protected class InitErrors {
+    static final public class InitErrors {
         static final private List<String> _errorsList = new ArrayList<>();
 
         static public void addError(String errorMessage) {

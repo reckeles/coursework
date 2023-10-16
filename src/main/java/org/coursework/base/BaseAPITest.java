@@ -1,6 +1,6 @@
 package org.coursework.base;
 
-import org.coursework.model.user.User;
+import org.coursework.api.model.user.User;
 
 import static org.coursework.config.EnvConfig.*;
 

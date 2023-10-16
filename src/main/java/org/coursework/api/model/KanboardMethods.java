@@ -1,4 +1,4 @@
-package org.coursework.model;
+package org.coursework.api.model;
 
 public enum KanboardMethods {
     CREATE_USER("createUser", 1423501287),

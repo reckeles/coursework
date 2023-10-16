@@ -1,4 +1,4 @@
-package org.coursework.model.user;
+package org.coursework.api.model.user;
 
 public class UserExtended extends User {
     private Integer id;

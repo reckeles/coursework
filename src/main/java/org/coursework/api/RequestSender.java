@@ -3,7 +3,7 @@ package org.coursework.api;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.coursework.model.Authorization;
+import org.coursework.api.model.Authorization;
 
 import java.net.URI;
 import java.net.URISyntaxException;

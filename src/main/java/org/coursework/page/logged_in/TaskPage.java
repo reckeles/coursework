@@ -7,6 +7,7 @@ import org.coursework.config.EnvConfig;
 import org.coursework.page.common.LoggedInFilterPage;
 import org.coursework.page.logged_in.modal_windows.task.AddCommentToTaskModalWindow;
 import org.coursework.page.logged_in.modal_windows.task.CloseTaskModalWindow;
+import org.coursework.utils.Wait;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
@@ -17,6 +18,7 @@ import static org.coursework.config.TextConfig.TASK_STATUS_CLOSED_LABEL;
 public class TaskPage extends LoggedInFilterPage {
     private Integer taskId;
     SoftAssert softAssert = new SoftAssert();
+
     private SelenideElement taskSummaryBox = $("section#task-summary");
 
     private SelenideElement commentsDetails = $x("//details[@class='accordion-section'][6]");
@@ -28,6 +30,7 @@ public class TaskPage extends LoggedInFilterPage {
     private SelenideElement statusLabel = $x("//div[@class='task-summary-column'][1]//li[1]/span");
 
     private SelenideElement comment = $(".comment");
+    //TODO baseelemnt
     private ElementsCollection listOfCommentsTexts = $$(".comment-content div p");
     private ElementsCollection listOfCommentsCreators = $$("strong.comment-username");
 
@@ -47,8 +50,15 @@ public class TaskPage extends LoggedInFilterPage {
     }
 
     @Step
+    public void addComment(String comment) {
+        commentsDetails.click();
+        textAreaCommentForm.sendKeys(comment);
+        submitButtonCommentForm.click();
+    }
+
+    @Step
     public void assertTaskIsClosed() {
-        sleep(3);
+        Wait.sleep(3 * 1000);
         Assert.assertEquals(statusLabel.getText(), TASK_STATUS_CLOSED_LABEL.value);
     }
 
@@ -64,13 +74,6 @@ public class TaskPage extends LoggedInFilterPage {
         comment.shouldBe(visible);
         SelenideElement lastCommentCreator = listOfCommentsCreators.get(listOfCommentsCreators.size() - 1);
         softAssert.assertEquals(lastCommentCreator.getText(), expectedUsername);
-    }
-
-    @Step
-    public void addComment(String comment){
-        commentsDetails.click();
-        textAreaCommentForm.sendKeys(comment);
-        submitButtonCommentForm.click();
     }
 
     @Override
