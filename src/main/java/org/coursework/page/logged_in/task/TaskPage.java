@@ -1,14 +1,16 @@
-package org.coursework.page.logged_in;
+package org.coursework.page.logged_in.task;
 
 import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.coursework.config.EnvConfig;
 import org.coursework.page.common.LoggedInFilterPage;
-import org.coursework.page.logged_in.modal_windows.task.AddCommentToTaskModalWindow;
-import org.coursework.page.logged_in.modal_windows.task.CloseTaskModalWindow;
 import org.coursework.utils.Wait;
 import org.testng.Assert;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
@@ -16,6 +18,8 @@ import static org.coursework.config.TextConfig.TASK_STATUS_CLOSED_LABEL;
 
 public class TaskPage extends LoggedInFilterPage {
     private Integer taskId;
+    private int commentsNumber;
+    private final String commentSelector = "//div[contains(@id, 'comment-')]";
 
     private SelenideElement taskSummaryBox = $("section#task-summary");
 
@@ -24,13 +28,7 @@ public class TaskPage extends LoggedInFilterPage {
     private SelenideElement closeTaskAction = $x("//a[contains(@href, 'close')]");
     private SelenideElement addCommentAction = $x("//a[contains(@href, '/comment/create')]");
 
-
     private SelenideElement statusLabel = $x("//div[@class='task-summary-column'][1]//li[1]/span");
-
-    private SelenideElement comment = $(".comment");
-    //TODO baseelemnt
-    private ElementsCollection listOfCommentsTexts = $$(".comment-content div p");
-    private ElementsCollection listOfCommentsCreators = $$("strong.comment-username");
 
     private SelenideElement textAreaCommentForm = $x("//textarea[@name='comment']");
     private SelenideElement submitButtonCommentForm = $x("//button[@type='submit']");
@@ -60,19 +58,29 @@ public class TaskPage extends LoggedInFilterPage {
         Assert.assertEquals(statusLabel.getText(), TASK_STATUS_CLOSED_LABEL.value, "Task status is not closed.");
     }
 
+    private List<CommentBlock> getCommentsOnPage() {
+        List<SelenideElement> elements = Selenide.$$x(commentSelector);
+        return elements.stream()
+                .map(CommentBlock::new)
+                .collect(Collectors.toList());
+    }
+
     @Step
     public void assertCommentTextIsSameAsExpected(String expectedCommentText) {
-        comment.shouldBe(visible);
-
-        SelenideElement lastCommentText = listOfCommentsTexts.get(listOfCommentsTexts.size() - 1);
-        Assert.assertEquals(lastCommentText.getText(), expectedCommentText, "Comment's text is not same as expected.");
+        List<CommentBlock> comments = getCommentsOnPage();
+        CommentBlock lastComment = comments.get(comments.size() - 1);
+        Assert.assertEquals(lastComment.text.text(), expectedCommentText, "Comment's text is not same as expected.");
     }
 
     @Step
     public void assertCommentCreatorIsSameAsExpected(String expectedUsername) {
-        comment.shouldBe(visible);
-        SelenideElement lastCommentCreator = listOfCommentsCreators.get(listOfCommentsCreators.size() - 1);
-        Assert.assertEquals(lastCommentCreator.getText(), expectedUsername, "Comment's creator name is not same as expected.");
+        List<CommentBlock> comments = getCommentsOnPage();
+        CommentBlock lastComment = comments.get(comments.size() - 1);
+        Assert.assertEquals(lastComment.creator.text(), expectedUsername, "Comment's creator name is not same as expected.");
+    }
+
+    public void addedCommentIsVisible(){
+        $x(String.format("%s[%s]", commentSelector, this.commentsNumber)).shouldBe(visible);
     }
 
     @Override
@@ -88,5 +96,13 @@ public class TaskPage extends LoggedInFilterPage {
 
     public void setTaskId(Integer taskId) {
         this.taskId = taskId;
+    }
+
+    public int getCommentsNumber() {
+        return commentsNumber;
+    }
+
+    public void setCommentsNumber(int commentsNumber) {
+        this.commentsNumber = commentsNumber;
     }
 }

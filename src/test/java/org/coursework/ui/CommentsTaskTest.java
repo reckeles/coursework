@@ -1,8 +1,8 @@
 package org.coursework.ui;
 
 import org.coursework.base.BaseGUITest;
-import org.coursework.page.logged_in.TaskPage;
-import org.coursework.page.logged_in.modal_windows.task.AddCommentToTaskModalWindow;
+import org.coursework.page.logged_in.task.TaskPage;
+import org.coursework.page.logged_in.task.AddCommentToTaskModalWindow;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -40,7 +40,9 @@ public class CommentsTaskTest extends BaseGUITest {
         AddCommentToTaskModalWindow addCommentToTaskModalWindow = taskPage.openAddCommentModalWindow();
 
         String comment = getRandomStr();
-        taskPage = addCommentToTaskModalWindow.addCommentWithoutEmail(comment);
+        taskPage = addCommentToTaskModalWindow.addCommentWithoutEmail(comment, taskPage);
+        taskPage.setCommentsNumber(taskPage.getCommentsNumber()+1);
+        taskPage.addedCommentIsVisible();
 
         taskPage.assertCommentCreatorIsSameAsExpected(user.getName());
         taskPage.assertCommentTextIsSameAsExpected(comment);
@@ -55,6 +57,8 @@ public class CommentsTaskTest extends BaseGUITest {
 
         String comment = getRandomStr();
         taskPage.addComment(comment);
+        taskPage.setCommentsNumber(taskPage.getCommentsNumber()+1);
+        taskPage.addedCommentIsVisible();
 
         taskPage.assertCommentCreatorIsSameAsExpected(user.getName());
         taskPage.assertCommentTextIsSameAsExpected(comment);

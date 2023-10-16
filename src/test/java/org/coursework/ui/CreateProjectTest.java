@@ -2,9 +2,9 @@ package org.coursework.ui;
 
 import org.coursework.base.BaseGUITest;
 import org.coursework.api.model.user.User;
-import org.coursework.page.logged_in.modal_windows.CreateProjectModalWindow;
+import org.coursework.page.logged_in.project.CreateProjectModalWindow;
 import org.coursework.page.logged_in.DashboardPage;
-import org.coursework.page.logged_in.ProjectPage;
+import org.coursework.page.logged_in.project.ProjectPage;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;

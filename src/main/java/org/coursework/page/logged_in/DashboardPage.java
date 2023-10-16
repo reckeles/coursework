@@ -5,7 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.coursework.config.EnvConfig;
 import org.coursework.page.common.LoggedInPage;
-import org.coursework.page.logged_in.modal_windows.CreateProjectModalWindow;
+import org.coursework.page.logged_in.project.CreateProjectModalWindow;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.page;

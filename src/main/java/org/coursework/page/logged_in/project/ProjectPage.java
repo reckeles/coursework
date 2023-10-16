@@ -1,4 +1,4 @@
-package org.coursework.page.logged_in;
+package org.coursework.page.logged_in.project;
 
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;

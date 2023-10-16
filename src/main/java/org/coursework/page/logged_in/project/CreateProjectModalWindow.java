@@ -1,10 +1,9 @@
-package org.coursework.page.logged_in.modal_windows;
+package org.coursework.page.logged_in.project;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.coursework.page.common.ModalWindow;
-import org.coursework.page.logged_in.ProjectPage;
 
 import static com.codeborne.selenide.Selenide.page;
 

@@ -1,10 +1,10 @@
-package org.coursework.page.logged_in.modal_windows.task;
+package org.coursework.page.logged_in.task;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.coursework.page.common.ModalWindow;
-import org.coursework.page.logged_in.TaskPage;
+import org.coursework.page.logged_in.task.TaskPage;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.page;

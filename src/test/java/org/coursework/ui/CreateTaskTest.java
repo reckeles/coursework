@@ -3,8 +3,8 @@ package org.coursework.ui;
 import org.coursework.base.BaseGUITest;
 import org.coursework.api.model.project.Project;
 import org.coursework.api.model.user.User;
-import org.coursework.page.logged_in.BoardPage;
-import org.coursework.page.logged_in.modal_windows.CreateTaskModalWindow;
+import org.coursework.page.logged_in.board.BoardPage;
+import org.coursework.page.logged_in.board.CreateTaskModalWindow;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -29,15 +29,17 @@ public class CreateTaskTest extends BaseGUITest {
         login(user.getUsername(), user.getPassword());
     }
 
-    @Test(groups = {"CRUD_task_UI", "UI", "smoke", "regression"})
+    @Test(groups = {"CRUD_task_UI", "UI", "smoke", "regression", "single"})
     public void createTask() {
         BoardPage boardPage = new BoardPage();
         boardPage.setProjectId(project.getId());
         boardPage.openPage();
         String taskName = getRandomStr();
         CreateTaskModalWindow createTaskModalWindow = boardPage.openAddTaskFormFromBacklog();
-        boardPage = createTaskModalWindow.createTaskOnlyRequiredFields(taskName);
-        boardPage.assertThatTaskNameIsSameAsAddedTask(taskName);
+        boardPage = createTaskModalWindow.createTaskOnlyRequiredFields(taskName, boardPage);
+        boardPage.setTasksNumberInBacklog(boardPage.getTasksNumberInBacklog()+1);
+        boardPage.addedTaskIsVisible();
+        boardPage.assertLastTaskNameIsRightBacklogColumn(taskName);
     }
 
     @AfterMethod(alwaysRun = true)
