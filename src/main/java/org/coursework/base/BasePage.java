@@ -39,6 +39,16 @@ abstract public class BasePage {
         return null;
     }
 
+    protected void sleep(int seconds){
+        try {
+            Thread.sleep(seconds*1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     abstract protected SelenideElement readyElement();
+    abstract public void openPage();
+//    abstract protected <T> T openPage(Integer id);
 
 }

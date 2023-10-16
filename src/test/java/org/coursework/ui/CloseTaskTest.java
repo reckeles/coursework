@@ -1,4 +1,54 @@
 package org.coursework.ui;
 
-public class CloseTaskTest {
+import org.coursework.base.BaseGUITest;
+import org.coursework.model.project.Project;
+import org.coursework.model.task.Task;
+import org.coursework.model.user.User;
+import org.coursework.page.logged_in.TaskPage;
+import org.coursework.page.logged_in.modal_windows.task.CloseTaskModalWindow;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import static org.coursework.api.ProjectProcedures.createProject;
+import static org.coursework.api.ProjectProcedures.removeProjectById;
+import static org.coursework.api.TaskProcedures.createTask;
+import static org.coursework.api.UserProcedures.createUser;
+import static org.coursework.api.UserProcedures.removeUserById;
+import static org.coursework.utils.TestData.*;
+
+public class CloseTaskTest extends BaseGUITest {
+    User user;
+    Project project;
+    Task task;
+
+    @BeforeMethod(alwaysRun = true)
+    public void before() {
+        user = createUser(generateDefaultUserData(), admin);
+        project = createProject(generateProjectWithOwnerData(user.getId()), user);
+        task = createTask(generateDefaultTaskData(project.getId()), user);
+
+        setWebDriver();
+        login(user.getUsername(), user.getPassword());
+    }
+
+    @Test(groups = {"CRUD_task_UI", "UI", "smoke", "regression", "single"})
+    public void closeTask() {
+        TaskPage taskPage = new TaskPage();
+        taskPage.setTaskId(task.getId());
+        taskPage.openPage();
+        CloseTaskModalWindow closeTaskModalWindow = taskPage.openCloseTaskModalWindow();
+        taskPage = closeTaskModalWindow.confirmCloseAction();
+        taskPage.assertTaskIsClosed();
+    }
+
+    @AfterMethod(alwaysRun = true)
+    public void after() {
+        closeWebDriver();
+
+        removeProjectById(project.getId(), user);
+        project = null;
+        removeUserById(user.getId(), admin);
+        user = null;
+    }
 }

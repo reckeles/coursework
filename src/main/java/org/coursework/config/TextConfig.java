@@ -7,6 +7,7 @@ public class TextConfig extends BaseConfig{
 //    static final private List<Param> _paramsList = new LinkedList<>();
 
     static final public Param LOGIN_PAGE_BAD_CREDS_ALERT = new Param("login.badCredsAlert", "Bad username or password", true, getEnvProperties(locale));
+    static final public Param TASK_STATUS_CLOSED_LABEL = new Param("task.status.closed", "closed", true, getEnvProperties(locale));
 
 
 

@@ -3,12 +3,14 @@ package org.coursework.page.auth;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
+import org.coursework.config.EnvConfig;
 import org.coursework.config.TextConfig;
 import org.coursework.base.BasePage;
 import org.coursework.page.logged_in.DashboardPage;
 import org.testng.Assert;
 
 import static com.codeborne.selenide.Condition.attribute;
+import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.page;
 
 public class LoginPage extends BasePage {
@@ -56,5 +58,10 @@ public class LoginPage extends BasePage {
     @Override
     protected SelenideElement readyElement() {
         return usernameInput;
+    }
+
+    @Override
+    public void openPage() {
+        open(EnvConfig.getBaseURL()+"/login");
     }
 }

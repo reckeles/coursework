@@ -68,7 +68,7 @@ public class Session {
         Runtime.getRuntime().addShutdownHook(new Thread(Session.this::close));
     }
 
-    //TO DO - refactor if has time
+    //TODO - refactor if has time
     private boolean setHeadlessFlag() {
         String property = System.getProperty("headless");
         if (property == null) {

@@ -30,7 +30,12 @@ public class APIUtil {
         Response response = RequestSender.sendRequest(base, authorization);
 
         BaseResponse<Boolean> answer = response.getBody().as(BaseResponse.class);
-        return answer.getResult();
+        if(answer.getResult()){
+            return answer.getResult();
+        }
+        else {
+            throw new RuntimeException("Item wasn't deleted");
+        }
     }
 
     public static <T, V> T sendCreateRequest(KanboardMethods method, V params, Authorization authorization) {

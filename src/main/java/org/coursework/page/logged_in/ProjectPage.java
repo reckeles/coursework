@@ -9,10 +9,10 @@ import org.coursework.config.EnvConfig;
 import org.coursework.page.common.LoggedInFilterPage;
 import org.testng.Assert;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.*;
 
 public class ProjectPage extends LoggedInFilterPage {
+    private Integer projectId;
     private final String PROJECT_URL_REGEX = String.format("%s/project/\\d+", EnvConfig.getBaseURL());
     private SelenideElement projectIsOpenLabel = $x("//ul[@class='panel']/li[1]");
     private SelenideElement projectGeneralInfoBlock = $("ul.panel");
@@ -32,5 +32,14 @@ public class ProjectPage extends LoggedInFilterPage {
     @Override
     protected SelenideElement readyElement() {
         return projectGeneralInfoBlock;
+    }
+
+    @Override
+    public void openPage() {
+        open(EnvConfig.getBaseURL()+"/project/"+projectId);
+    }
+
+    public void setProjectId(Integer projectId) {
+        this.projectId = projectId;
     }
 }

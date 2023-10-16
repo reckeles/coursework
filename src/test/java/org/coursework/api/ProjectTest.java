@@ -21,7 +21,7 @@ public class ProjectTest extends BaseAPITest {
         user = createUser(generateDefaultUserData(), admin);
     }
 
-    @Test(groups = {"CRUD_project_API", "API", "smoke", "regression", "single"})
+    @Test(groups = {"CRUD_project_API", "API", "smoke", "regression"})
     public void projectFlow() {
         Project project = createProject(generateProjectWithOwnerData(user.getId()), user);
 

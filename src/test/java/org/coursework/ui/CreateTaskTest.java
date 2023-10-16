@@ -16,9 +16,6 @@ import static org.coursework.api.UserProcedures.removeUserById;
 import static org.coursework.utils.TestData.*;
 
 public class CreateTaskTest extends BaseGUITest {
-
-    private BoardPage boardPage = new BoardPage();
-    private CreateTaskModalWindow createTaskModalWindow;
     private User user;
     private Project project;
 
@@ -34,9 +31,11 @@ public class CreateTaskTest extends BaseGUITest {
 
     @Test(groups = {"CRUD_task_UI", "UI", "smoke", "regression"})
     public void createTask() {
-        boardPage.openPage(project.getId());
+        BoardPage boardPage = new BoardPage();
+        boardPage.setProjectId(project.getId());
+        boardPage.openPage();
         String taskName = getRandomStr();
-        createTaskModalWindow = boardPage.openAddTaskFormFromBacklog();
+        CreateTaskModalWindow createTaskModalWindow = boardPage.openAddTaskFormFromBacklog();
         boardPage = createTaskModalWindow.createTaskOnlyRequiredFields(taskName);
         boardPage.assertThatTaskNameIsSameAsAddedTask(taskName);
     }

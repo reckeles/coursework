@@ -13,8 +13,6 @@ import static org.coursework.utils.TestData.getRandomStr;
 
 
 public class LoginTest extends BaseGUITest {
-    private LoginPage loginPage = new LoginPage();
-    private DashboardPage dashboardPage;
     private User user;
 
     @BeforeMethod(alwaysRun = true)
@@ -25,24 +23,28 @@ public class LoginTest extends BaseGUITest {
 
     @Test(groups = {"authflow", "UI", "smoke", "regression"})
     public void loginValidUser() {
-        dashboardPage = loginPage.login(user.getUsername(), user.getPassword());
+        LoginPage loginPage = new LoginPage();
+        DashboardPage dashboardPage = loginPage.login(user.getUsername(), user.getPassword());
         dashboardPage.searchVisible();
     }
 
     @Test(groups = {"authflow", "UI", "regression"})
     public void loginEmptyUsernameField() {
+        LoginPage loginPage = new LoginPage();
         loginPage.loginWithoutPassword(user.getUsername());
         loginPage.usernameIsRequired();
     }
 
     @Test(groups = {"authflow", "UI", "regression"})
     public void loginEmptyPasswordField() {
+        LoginPage loginPage = new LoginPage();
         loginPage.loginWithoutUsername(user.getPassword());
         loginPage.passwordIsRequired();
     }
 
     @Test(groups = {"authflow", "UI", "smoke", "regression"})
     public void loginWithInvalidPassword() {
+        LoginPage loginPage = new LoginPage();
         loginPage.login(user.getUsername(), getRandomStr());
         loginPage.assertBadCredsAlertIsPresent();
     }
