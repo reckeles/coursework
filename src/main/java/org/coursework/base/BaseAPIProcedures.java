@@ -2,13 +2,11 @@ package org.coursework.base;
 
 import io.qameta.allure.Step;
 import org.testng.Assert;
-import org.testng.asserts.SoftAssert;
 
 public class BaseAPIProcedures {
     @Step("Created item's {field} is same as expected")
     public static void assertItemField(String actual, String expected, String field) {
-        SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(actual, expected);
+        Assert.assertEquals(actual, expected);
     }
 
     @Step

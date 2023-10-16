@@ -9,7 +9,6 @@ import org.coursework.page.logged_in.modal_windows.task.AddCommentToTaskModalWin
 import org.coursework.page.logged_in.modal_windows.task.CloseTaskModalWindow;
 import org.coursework.utils.Wait;
 import org.testng.Assert;
-import org.testng.asserts.SoftAssert;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
@@ -17,7 +16,6 @@ import static org.coursework.config.TextConfig.TASK_STATUS_CLOSED_LABEL;
 
 public class TaskPage extends LoggedInFilterPage {
     private Integer taskId;
-    SoftAssert softAssert = new SoftAssert();
 
     private SelenideElement taskSummaryBox = $("section#task-summary");
 
@@ -59,21 +57,22 @@ public class TaskPage extends LoggedInFilterPage {
     @Step
     public void assertTaskIsClosed() {
         Wait.sleep(3 * 1000);
-        Assert.assertEquals(statusLabel.getText(), TASK_STATUS_CLOSED_LABEL.value);
+        Assert.assertEquals(statusLabel.getText(), TASK_STATUS_CLOSED_LABEL.value, "Task status is not closed.");
     }
 
     @Step
-    public void assertCommentTextIsSameAsExpected(String expectedText) {
+    public void assertCommentTextIsSameAsExpected(String expectedCommentText) {
         comment.shouldBe(visible);
+
         SelenideElement lastCommentText = listOfCommentsTexts.get(listOfCommentsTexts.size() - 1);
-        softAssert.assertEquals(lastCommentText.getText(), expectedText);
+        Assert.assertEquals(lastCommentText.getText(), expectedCommentText, "Comment's text is not same as expected.");
     }
 
     @Step
     public void assertCommentCreatorIsSameAsExpected(String expectedUsername) {
         comment.shouldBe(visible);
         SelenideElement lastCommentCreator = listOfCommentsCreators.get(listOfCommentsCreators.size() - 1);
-        softAssert.assertEquals(lastCommentCreator.getText(), expectedUsername);
+        Assert.assertEquals(lastCommentCreator.getText(), expectedUsername, "Comment's creator name is not same as expected.");
     }
 
     @Override

@@ -42,7 +42,7 @@ public class CommentsTaskTest extends BaseGUITest {
         String comment = getRandomStr();
         taskPage = addCommentToTaskModalWindow.addCommentWithoutEmail(comment);
 
-        taskPage.assertCommentCreatorIsSameAsExpected(user.getUsername());
+        taskPage.assertCommentCreatorIsSameAsExpected(user.getName());
         taskPage.assertCommentTextIsSameAsExpected(comment);
         //TODO add assertion for dates in comment
     }
@@ -56,7 +56,7 @@ public class CommentsTaskTest extends BaseGUITest {
         String comment = getRandomStr();
         taskPage.addComment(comment);
 
-        taskPage.assertCommentCreatorIsSameAsExpected(user.getUsername());
+        taskPage.assertCommentCreatorIsSameAsExpected(user.getName());
         taskPage.assertCommentTextIsSameAsExpected(comment);
         //TODO add assertion for dates in comment
     }

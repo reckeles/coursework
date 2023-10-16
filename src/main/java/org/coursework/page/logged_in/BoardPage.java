@@ -24,7 +24,7 @@ public class BoardPage extends LoggedInFilterPage {
     //TODO baseelemnt - refactor as done in example ProductItemPreviewBlock (kind of don't need to copy everything)
     public void assertThatTaskNameIsSameAsAddedTask(String expectedName){
         SelenideElement lastTaskName = listOfTasksNamesInBacklog.get(listOfTasksNamesInBacklog.size());
-        Assert.assertEquals(lastTaskName.getText(), expectedName);
+        Assert.assertEquals(lastTaskName.getText(), expectedName, "Task name is not same as expected.");
     }
 
     @Override
