@@ -11,7 +11,7 @@ import static org.coursework.utils.PropertyUtil.getProperty;
 
 abstract public class BaseTestbed {
     private final boolean HEADLESS_FLAG = Boolean.valueOf(getProperty("headless", "true"));
-    protected final String WEB_BROWSER = getProperty("browser", "chrome");
+    protected final String WEB_BROWSER = getProperty("browser", "firefox");
 
     final protected ChromeOptions getCommonChromeOptions() {
         ChromeOptions options = new ChromeOptions();
