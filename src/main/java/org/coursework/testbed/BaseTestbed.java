@@ -29,10 +29,20 @@ abstract public class BaseTestbed {
 
     final protected FirefoxOptions getCommonFirefoxOptions() {
         FirefoxOptions options = new FirefoxOptions();
-        options.setCapability("app.update.disabledForTesting",true);
-        options.setCapability("toolkit.cosmeticAnimations.enabled",false);
-        options.setCapability("datareporting.policy.dataSubmissionPolicyAccepted",false);
-        options.setHeadless(HEADLESS_FLAG);
+//        options.setCapability("app.update.disabledForTesting",true);
+//        options.setCapability("toolkit.cosmeticAnimations.enabled",false);
+//        options.setCapability("datareporting.policy.dataSubmissionPolicyAccepted",false);
+//        options.setHeadless(HEADLESS_FLAG);
+        options.addArguments("disable-default-apps");
+        options.addArguments("disable-extensions");
+        Map<String, Object> preferences = new HashMap<>();
+        preferences.put("browser.show_home_button", false);
+        options.addArguments("start-maximized");
+        if (HEADLESS_FLAG) {
+            options.addArguments("--headless");
+            options.addArguments("--no-sandbox");
+            options.addArguments("start-maximized");
+        }
         return options;
     }
 
