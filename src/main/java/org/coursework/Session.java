@@ -21,6 +21,7 @@ public class Session {
         return _instance.get();
     }
 
+    //TODO extract method for create chrome and firefox webdriver and throw runtime exception
     public WebDriver webdriver() {
         if (this._webdriver == null) {
             if ("chrome".equalsIgnoreCase(WEB_BROWSER)) {
