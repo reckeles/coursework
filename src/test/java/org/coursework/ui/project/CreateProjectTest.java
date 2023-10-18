@@ -1,4 +1,4 @@
-package org.coursework.ui;
+package org.coursework.ui.project;
 
 import org.coursework.base.BaseGUITest;
 import org.coursework.api.model.user.User;
