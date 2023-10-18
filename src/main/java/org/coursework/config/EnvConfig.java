@@ -6,8 +6,10 @@ import org.coursework.config.enums.Environment;
 
 import java.util.Properties;
 
+import static org.coursework.utils.CustomProperties.getCustomProperty;
+
 public class EnvConfig extends BaseConfig {
-    static private Environment env = setEnv();
+    static private Environment env = Environment.valueOf(getCustomProperty("env", "LOCAL"));
 
     static final public Param HTTP_BASE_PROTOCOL = new Param("http.base.protocol", "http", true, getEnvProperties(env));
     static final public Param HTTP_BASE_URL = new Param("http.base.url", "localhost", true, getEnvProperties(env));
@@ -31,13 +33,5 @@ public class EnvConfig extends BaseConfig {
 
     static public String getBaseURL() {
         return String.format("%s://%s", EnvConfig.HTTP_BASE_PROTOCOL.value, EnvConfig.HTTP_BASE_URL.value);
-    }
-
-    static private Environment setEnv() {
-        String property = System.getProperty("env");
-        if (property == null) {
-            return Environment.LOCAL;
-        }
-        return Environment.valueOf(property);
     }
 }

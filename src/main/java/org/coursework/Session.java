@@ -9,11 +9,13 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.coursework.utils.CustomProperties.getCustomProperty;
+
 public class Session {
     static final private ThreadLocal<Session> _instance = new ThreadLocal<>();
     private WebDriver _webdriver;
-    private final boolean HEADLESS_FLAG = setHeadlessFlag();
-    private final String WEB_BROWSER = setWebBrowser();
+    private final boolean HEADLESS_FLAG = Boolean.valueOf(getCustomProperty("headless", "true"));
+    private final String WEB_BROWSER = getCustomProperty("browser", "chrome");
 
     static public Session get() {
         if (_instance.get() == null)
@@ -39,7 +41,7 @@ public class Session {
                 this._webdriver = new ChromeDriver(options);
                 this._webdriver.manage().window().maximize();
             }
-            if ("firefox".equalsIgnoreCase(WEB_BROWSER)) {
+            else if ("firefox".equalsIgnoreCase(WEB_BROWSER)) {
                 FirefoxOptions options = new FirefoxOptions();
                 options.addArguments("disable-default-apps");
                 options.addArguments("disable-extensions");
@@ -54,6 +56,9 @@ public class Session {
                 this._webdriver = new FirefoxDriver(options);
                 this._webdriver.manage().window().maximize();
             }
+            else {
+                throw new RuntimeException("Unsupported browser: " + WEB_BROWSER);
+            }
         }
         return this._webdriver;
     }
@@ -67,25 +72,5 @@ public class Session {
 
     private Session() {
         Runtime.getRuntime().addShutdownHook(new Thread(Session.this::close));
-    }
-
-    private boolean setHeadlessFlag() {
-        String property = System.getProperty("headless");
-        if (property == null) {
-            return true;
-        }
-        return Boolean.valueOf(property);
-    }
-
-    private String setWebBrowser() {
-        String property = System.getProperty("browser");
-        String chrome = "chrome";
-        String firefox = "firefox";
-        if (property == null) {
-            return chrome;
-        } else if (property.equalsIgnoreCase(chrome) || property.equalsIgnoreCase(firefox)) {
-            return property;
-        }
-        return chrome;
     }
 }
