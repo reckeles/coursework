@@ -1,7 +1,6 @@
 package org.coursework.config.enums;
 
 public enum Environment {
-    DEV,
     LOCAL,
     GRID;
 
