@@ -34,6 +34,7 @@ public class TestbedGrid extends BaseTestbed{
             gridPort = EnvConfig.SELENIUM_GRID_FIREFOX_PORT.value;
             caps.setCapability(FirefoxOptions.FIREFOX_OPTIONS, this.getCommonFirefoxOptions());
             caps.setCapability(CapabilityType.BROWSER_NAME, Browser.FIREFOX.browserName());
+            caps.setCapability(CapabilityType.PLATFORM_NAME, Platform.LINUX);
         } else
             throw new RuntimeException("Unsupported browser: " + WEB_BROWSER);
 
