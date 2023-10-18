@@ -24,8 +24,43 @@ services:
     volumes:
       - db:/var/lib/mysql
 
-volumes:
-  kanboard_data:
-  kanboard_plugins:
-  kanboard_ssl:
-  db:
+  # DevOps / Testing
+  jenkins:
+    image: "jenkins/jenkins:lts"
+    container_name: "jenkins_lts"
+    volumes:
+      - jenkins:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock:rw
+      - /usr/bin/docker:/usr/bin/docker
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    ports:
+      - 8080:8080
+    networks:
+      - default
+
+  selenium-chrome:
+    image: "selenium/standalone-chrome:latest"
+    container_name: "selenium-chrome"
+    ports:
+      - 4444:4444
+      - 7900:7900
+    networks:
+      - default
+
+  selenium-firefox:
+    image: "selenium/standalone-firefox:latest"
+    container_name: "selenium-firefox"
+    ports:
+      - 4445:4445
+      - 7901:7901
+    networks:
+      - default
+
+  volumes:
+    kanboard_data:
+    kanboard_plugins:
+    kanboard_ssl:
+    db:
+    jenkins:

@@ -11,7 +11,7 @@ import static org.coursework.utils.PropertyUtil.getProperty;
 
 abstract public class BaseTestbed {
     private final boolean HEADLESS_FLAG = Boolean.valueOf(getProperty("headless", "true"));
-    protected final String WEB_BROWSER = getProperty("browser", "firefox");
+    protected final String WEB_BROWSER = getProperty("browser", "chrome");
 
     final protected ChromeOptions getCommonChromeOptions() {
         ChromeOptions options = new ChromeOptions();
@@ -29,10 +29,7 @@ abstract public class BaseTestbed {
 
     final protected FirefoxOptions getCommonFirefoxOptions() {
         FirefoxOptions options = new FirefoxOptions();
-//        options.setCapability("app.update.disabledForTesting",true);
-//        options.setCapability("toolkit.cosmeticAnimations.enabled",false);
-//        options.setCapability("datareporting.policy.dataSubmissionPolicyAccepted",false);
-//        options.setHeadless(HEADLESS_FLAG);
+        //TODO switch to capabilities
         options.addArguments("disable-default-apps");
         options.addArguments("disable-extensions");
         Map<String, Object> preferences = new HashMap<>();
