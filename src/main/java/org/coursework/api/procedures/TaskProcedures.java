@@ -14,7 +14,7 @@ public class TaskProcedures extends BaseAPIProcedures {
 
     @Step
     public static TaskExtended getTaskById(Integer id, Authorization authorization) {
-        return sendGetRequest(GET_TASK, new TaskId(id), TaskExtended.class, authorization);
+        return sendGetRequest(GET_TASK, TaskId.builder().task_id(id).build(), TaskExtended.class, authorization);
     }
 
     @Step
@@ -26,7 +26,6 @@ public class TaskProcedures extends BaseAPIProcedures {
 
     @Step
     public static Boolean removeTaskById(Integer id, Authorization authorization) {
-
-        return sendRemoveRequest(REMOVE_TASK, new TaskId(id), authorization);
+        return sendRemoveRequest(REMOVE_TASK, TaskId.builder().task_id(id).build(), authorization);
     }
 }

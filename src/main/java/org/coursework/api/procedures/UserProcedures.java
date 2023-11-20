@@ -21,11 +21,11 @@ public class UserProcedures extends BaseAPIProcedures {
 
     @Step
     public static UserExtended getUserById(Integer id, Authorization authorization) {
-        return sendGetRequest(GET_USER, new UserId(id), UserExtended.class, authorization);
+        return sendGetRequest(GET_USER, UserId.builder().user_id(id).build(), UserExtended.class, authorization);
     }
 
     @Step
     public static Boolean removeUserById(Integer id, Authorization authorization) {
-        return sendRemoveRequest(REMOVE_USER, new UserId(id), authorization);
+        return sendRemoveRequest(REMOVE_USER, UserId.builder().user_id(id).build(), authorization);
     }
 }

@@ -30,19 +30,36 @@ public class TestData {
     }
 
     public static User generateDefaultUserData() {
-        return new User("newuser" + getRandomInt(), "password_123", "Yuliia", "yuliia@gmail.com", ADMIN_ROLE);
+//        return new User("newuser" + getRandomInt(), "password_123", "Yuliia", "yuliia@gmail.com", ADMIN_ROLE);
+        return User.builder()
+                    .username("newuser" + getRandomInt())
+                    .password("password_123")
+                    .name("Yuliia")
+                    .email("yuliia@gmail.com")
+                    .role(ADMIN_ROLE)
+                    .build();
     }
 
     public static Project generateDefaultProjectData() {
-        return new Project("project" + getRandomInt());
+//        return new Project("project" + getRandomInt());
+        return Project.builder()
+                    .name("project" + getRandomInt())
+                    .build();
     }
 
     public static Project generateProjectWithOwnerData(Integer userId) {
-        return new Project("project" + getRandomInt(), userId);
+//        return new Project("project" + getRandomInt(), userId);
+        return Project.builder()
+                .name("project" + getRandomInt())
+                .owner_id(userId)
+                .build();
     }
 
     public static Task generateDefaultTaskData(Integer projectId) {
-        return new Task("task" + getRandomInt(), projectId);
+        return Task.builder()
+                .title("task" + getRandomInt())
+                .project_id(projectId)
+                .build();
     }
 
 }

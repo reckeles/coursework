@@ -1,13 +1,10 @@
 package org.coursework.api.model.user;
 
+import lombok.*;
+
+@Builder
+@AllArgsConstructor
+@Getter
 public class UserId {
-    int user_id;
-
-    public UserId(int user_id) {
-        this.user_id = user_id;
-    }
-
-    public int getUser_id() {
-        return user_id;
-    }
+    private int user_id;
 }

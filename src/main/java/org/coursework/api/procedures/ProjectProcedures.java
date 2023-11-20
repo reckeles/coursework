@@ -13,7 +13,7 @@ import static org.coursework.api.model.KanboardMethods.*;
 public class ProjectProcedures extends BaseAPIProcedures {
     @Step
     public static ProjectExtended getProjectById(Integer id, Authorization authorization) {
-        return sendGetRequest(GET_PROJECT_BY_ID, new ProjectId(id), ProjectExtended.class, authorization);
+        return sendGetRequest(GET_PROJECT_BY_ID, ProjectId.builder().project_id(id).build(), ProjectExtended.class, authorization);
     }
 
     @Step
@@ -25,6 +25,6 @@ public class ProjectProcedures extends BaseAPIProcedures {
 
     @Step
     public static Boolean removeProjectById(Integer id, Authorization authorization) {
-        return sendRemoveRequest(REMOVE_PROJECT, new ProjectId(id), authorization);
+        return sendRemoveRequest(REMOVE_PROJECT, ProjectId.builder().project_id(id).build(), authorization);
     }
 }

@@ -22,6 +22,7 @@
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <allure-maven.version>2.10.0</allure-maven.version>
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+        <org.projectlombok.version>1.18.28</org.projectlombok.version>
     </properties>
 
     <dependencies>
@@ -71,12 +72,28 @@
             <artifactId>maven-compiler-plugin</artifactId>
             <version>${maven-compiler-plugin.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${org.projectlombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                <annotationProcessorPaths>
+                    <path>
+                        <groupId>org.projectlombok</groupId>
+                        <artifactId>lombok</artifactId>
+                        <version>${org.projectlombok.version}</version>
+                    </path>
+                </annotationProcessorPaths>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

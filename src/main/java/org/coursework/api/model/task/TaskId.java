@@ -1,13 +1,10 @@
 package org.coursework.api.model.task;
 
+import lombok.*;
+
+@Builder
+@Getter
+@Setter
 public class TaskId {
     private int task_id;
-
-    public TaskId(int task_id) {
-        this.task_id = task_id;
-    }
-
-    public int getTask_id() {
-        return task_id;
-    }
 }

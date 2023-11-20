@@ -13,7 +13,10 @@ import static org.coursework.config.EnvConfig.ADMIN_PASSWORD;
 import static org.coursework.config.EnvConfig.ADMIN_USERNAME;
 
 public class BaseGUITest {
-    protected final User admin = new User(ADMIN_USERNAME.value, ADMIN_PASSWORD.value);
+    protected final User admin = User.builder()
+            .username(ADMIN_USERNAME.value)
+            .password(ADMIN_PASSWORD.value)
+            .build();
 
     protected void setWebDriver() {
         Session.get().webdriver().get(EnvConfig.getBaseURL());
