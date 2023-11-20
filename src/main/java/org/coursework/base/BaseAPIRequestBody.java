@@ -1,7 +1,10 @@
 package org.coursework.base;
 
+import lombok.Getter;
 import org.coursework.config.EnvConfig;
 
+
+@Getter
 public class BaseAPIRequestBody<T> {
     private String jsonrpc;
     private String method;
@@ -13,21 +16,5 @@ public class BaseAPIRequestBody<T> {
         this.method = method;
         this.id = id;
         this.params = params;
-    }
-
-    public String getJsonrpc() {
-        return jsonrpc;
-    }
-
-    public String getMethod() {
-        return method;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public T getParams() {
-        return params;
     }
 }

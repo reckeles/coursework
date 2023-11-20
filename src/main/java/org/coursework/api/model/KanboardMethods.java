@@ -1,5 +1,10 @@
 package org.coursework.api.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
+@Getter
 public enum KanboardMethods {
     CREATE_USER("createUser", 1423501287),
     GET_USER("getUser", 1769674781),
@@ -11,20 +16,6 @@ public enum KanboardMethods {
     GET_TASK("getTask", 700738119),
     REMOVE_TASK("removeTask", 1423501287);
 
-    String method;
-    long id;
-
-    KanboardMethods(String method, long id){
-        this.method=method;
-        this.id=id;
-    }
-
-    public String getMethod(){
-        return this.method;
-    }
-
-    public long getId(){
-        return this.id;
-    }
-
+    private String method;
+    private long id;
 }

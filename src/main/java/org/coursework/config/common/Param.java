@@ -29,7 +29,7 @@ public class Param {
         if (tmpVal == null)
             tmpVal = defaultValue;
         if (tmpVal == null)
-            BaseConfig.InitErrors.addError("Parameter value is not found. Parameter " + name);
+            InitErrors.addError("Parameter value is not found. Parameter " + name);
         value = tmpVal;
 //        EnvConfig._paramsList.add(this);
     }

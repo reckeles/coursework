@@ -21,7 +21,7 @@ public class CreateProjectTest extends BaseGUITest {
 
     @BeforeMethod(alwaysRun = true)
     public void before() {
-        user = createUser(generateDefaultUserData(), admin);
+        user = createUser(generateDefaultUserData(), ADMIN);
 
         setWebDriver();
         login(user.getUsername(), user.getPassword());
@@ -44,7 +44,7 @@ public class CreateProjectTest extends BaseGUITest {
 
         removeProjectById(projectId, user);
 
-        removeUserById(user.getId(), admin);
+        removeUserById(user.getId(), ADMIN);
         user = null;
     }
 }

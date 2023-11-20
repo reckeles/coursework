@@ -22,7 +22,7 @@ public class CreateTaskTest extends BaseGUITest {
 
     @BeforeMethod(alwaysRun = true)
     public void before() {
-        user = createUser(generateDefaultUserData(), admin);
+        user = createUser(generateDefaultUserData(), ADMIN);
         project = createProject(generateProjectWithOwnerData(user.getId()), user);
 
         setWebDriver();
@@ -48,7 +48,7 @@ public class CreateTaskTest extends BaseGUITest {
 
         removeProjectById(project.getId(), user);
         project = null;
-        removeUserById(user.getId(), admin);
+        removeUserById(user.getId(), ADMIN);
         user = null;
     }
 }

@@ -18,7 +18,7 @@ public class ProjectTest extends BaseAPITest {
 
     @BeforeTest(alwaysRun = true)
     public void beforeTest() {
-        user = createUser(generateDefaultUserData(), admin);
+        user = createUser(generateDefaultUserData(), ADMIN);
     }
 
     @Test(groups = {"CRUD_project_API", "API", "smoke", "regression"})
@@ -34,6 +34,6 @@ public class ProjectTest extends BaseAPITest {
 
     @AfterTest(alwaysRun = true)
     public void afterTest() {
-        removeUserById(user.getId(), admin);
+        removeUserById(user.getId(), ADMIN);
     }
 }

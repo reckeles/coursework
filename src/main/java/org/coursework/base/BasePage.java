@@ -8,15 +8,13 @@ import org.coursework.Session;
 import java.time.Instant;
 
 abstract public class BasePage {
-    protected WebDriver wd() {
-        return Session.get().webdriver();
-    }
+    abstract public void openPage();
 
     public boolean isPageLoaded(int timeoutSec) {
         Boolean customConfirm = this.customConfirm();
-        if (customConfirm != null)
+        if (customConfirm != null) {
             return customConfirm;
-
+        }
         boolean result = false;
 
         long timeout = Instant.now().getEpochSecond() + timeoutSec;
@@ -26,20 +24,22 @@ abstract public class BasePage {
                 break;
             Wait.sleep(500);
         }
-
         return result;
     }
 
     public void confirmPageIsLoaded() {
         if (!this.isPageLoaded(5))
-            throw new RuntimeException("Could not confirm that page is loaded: " + this.getClass().getSimpleName());
+            throw new RuntimeException("Could not confirm that page is loaded: "
+                    + this.getClass().getSimpleName());
+    }
+
+    abstract protected SelenideElement readyElement();
+
+    protected WebDriver wd() {
+        return Session.get().webdriver();
     }
 
     protected Boolean customConfirm() {
         return null;
     }
-
-    abstract protected SelenideElement readyElement();
-
-    abstract public void openPage();
 }

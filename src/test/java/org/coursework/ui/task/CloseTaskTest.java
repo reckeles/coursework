@@ -24,7 +24,7 @@ public class CloseTaskTest extends BaseGUITest {
 
     @BeforeMethod(alwaysRun = true)
     public void before() {
-        user = createUser(generateDefaultUserData(), admin);
+        user = createUser(generateDefaultUserData(), ADMIN);
         project = createProject(generateProjectWithOwnerData(user.getId()), user);
         task = createTask(generateDefaultTaskData(project.getId()), user);
 
@@ -48,7 +48,7 @@ public class CloseTaskTest extends BaseGUITest {
 
         removeProjectById(project.getId(), user);
         project = null;
-        removeUserById(user.getId(), admin);
+        removeUserById(user.getId(), ADMIN);
         user = null;
     }
 }

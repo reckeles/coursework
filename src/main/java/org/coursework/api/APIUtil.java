@@ -7,44 +7,46 @@ import org.coursework.api.model.Authorization;
 import org.coursework.base.BaseAPIRequestBody;
 import org.coursework.base.BaseAPIResponse;
 
-public class APIUtil {
+abstract public class APIUtil {
+    public static <T, V> T sendGetRequest(KanboardMethods method, V params, Class<T> toValueTypeRef,
+                                          Authorization authorization) {
+        BaseAPIRequestBody<V> requestBody = new BaseAPIRequestBody<>(method.getMethod(), method.getId(), params);
 
-    public static <T, V> T sendGetRequest(KanboardMethods method, V params, Class<T> toValueTypeRef, Authorization authorization) {
-        BaseAPIRequestBody<V> base = new BaseAPIRequestBody<>(method.getMethod(), method.getId(), params);
-
-        Response response = RequestSender.sendRequest(base, authorization);
-
-        BaseAPIResponse<T> answer = response.getBody().as(BaseAPIResponse.class);
+        Response response = RequestSender.sendRequest(requestBody, authorization);
+        BaseAPIResponse<T> responseBody = response.getBody().as(BaseAPIResponse.class);
 
         ObjectMapper mapper = new ObjectMapper();
         return mapper.convertValue(
-                answer.getResult(),
+                responseBody.getResult(),
                 toValueTypeRef
         );
     }
 
-    public static <V> Boolean sendRemoveRequest(KanboardMethods method, V params, Authorization authorization) {
-        BaseAPIRequestBody<V> base = new BaseAPIRequestBody<>(method.getMethod(), method.getId(), params);
+    public static <V> Boolean sendRemoveRequest(KanboardMethods method, V params,
+                                                Authorization authorization) {
+        BaseAPIRequestBody<V> requestBody = new BaseAPIRequestBody<>(method.getMethod(), method.getId(), params);
 
-        Response response = RequestSender.sendRequest(base, authorization);
+        Response response = RequestSender.sendRequest(requestBody, authorization);
 
-        BaseAPIResponse<Boolean> answer = response.getBody().as(BaseAPIResponse.class);
-        if (answer.getResult()) {
-            return answer.getResult();
+        BaseAPIResponse<Boolean> responseBody = response.getBody().as(BaseAPIResponse.class);
+        if (responseBody.getResult()) {
+            return responseBody.getResult();
         } else {
             throw new RuntimeException("Item wasn't deleted");
         }
     }
 
-    public static <T, V> T sendCreateRequest(KanboardMethods method, V params, Authorization authorization) {
-        BaseAPIRequestBody<V> base = new BaseAPIRequestBody<>(method.getMethod(), method.getId(), params);
+    public static <T, V> T sendCreateRequest(KanboardMethods method, V params,
+                                             Authorization authorization) {
+        BaseAPIRequestBody<V> requestBody = new BaseAPIRequestBody<>(method.getMethod(), method.getId(), params);
 
-        Response response = RequestSender.sendRequest(base, authorization);
+        Response response = RequestSender.sendRequest(requestBody, authorization);
+        BaseAPIResponse<?> responseBody = response.getBody().as(BaseAPIResponse.class);
 
-        BaseAPIResponse<?> answer = response.getBody().as(BaseAPIResponse.class);
-        var result = answer.getResult();
+        var result = responseBody.getResult();
         if (result instanceof Boolean || result == null) {
-            throw new RuntimeException("Item wasn't created. Create Request failed. Status code: " + response.getStatusCode() + " Body: " + response.getBody().print());
+            throw new RuntimeException("Item wasn't created. Create Request failed. Status code: " + response.getStatusCode()
+                    + " Body: " + response.getBody().print());
         } else {
             return (T) result;
         }

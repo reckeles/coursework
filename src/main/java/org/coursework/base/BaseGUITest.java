@@ -12,8 +12,8 @@ import static com.codeborne.selenide.Selenide.page;
 import static org.coursework.config.EnvConfig.ADMIN_PASSWORD;
 import static org.coursework.config.EnvConfig.ADMIN_USERNAME;
 
-public class BaseGUITest {
-    protected final User admin = User.builder()
+abstract public class BaseGUITest {
+    protected final User ADMIN = User.builder()
             .username(ADMIN_USERNAME.value)
             .password(ADMIN_PASSWORD.value)
             .build();

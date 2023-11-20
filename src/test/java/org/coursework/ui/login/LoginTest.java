@@ -17,7 +17,7 @@ public class LoginTest extends BaseGUITest {
 
     @BeforeMethod(alwaysRun = true)
     public void beforeMethod() {
-        user = createUser(generateDefaultUserData(), admin);
+        user = createUser(generateDefaultUserData(), ADMIN);
         setWebDriver();
     }
 
@@ -52,7 +52,7 @@ public class LoginTest extends BaseGUITest {
     @AfterMethod(alwaysRun = true)
     public void afterMethod() {
         closeWebDriver();
-        removeUserById(user.getId(), admin);
+        removeUserById(user.getId(), ADMIN);
         user = null;
     }
 }

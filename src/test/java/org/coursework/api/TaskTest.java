@@ -21,7 +21,7 @@ public class TaskTest extends BaseAPITest {
 
     @BeforeMethod(alwaysRun = true)
     public void before() {
-        user = createUser(generateDefaultUserData(), admin);
+        user = createUser(generateDefaultUserData(), ADMIN);
         project = createProject(generateProjectWithOwnerData(user.getId()), user);
     }
 
@@ -39,6 +39,6 @@ public class TaskTest extends BaseAPITest {
     @AfterMethod(alwaysRun = true)
     public void after() {
         removeProjectById(project.getId(), user);
-        removeUserById(user.getId(), admin);
+        removeUserById(user.getId(), ADMIN);
     }
 }
