@@ -5,8 +5,8 @@ import org.coursework.base.BaseConfig;
 import java.util.Properties;
 
 public class Param {
-    final public String name;
-    final public String value;
+    public final String name;
+    public final String value;
 
     public Param(String name) {
         this(name, null, false, null);

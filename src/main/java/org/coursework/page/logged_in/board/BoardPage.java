@@ -20,21 +20,10 @@ public class BoardPage extends LoggedInFilterPage {
 
     private SelenideElement addTaskIconBacklog = $x("//th[contains(@class, 'board-column-header')][1]//i[contains(@class, 'js-modal-large')]");
 
-    public BoardPage() {
-        this.tasksNumberInBacklog = 0;
-    }
-
     @Step
     public CreateTaskModalWindow openAddTaskFormFromBacklog() {
         addTaskIconBacklog.click();
         return page(CreateTaskModalWindow.class);
-    }
-
-    private List<TaskPreviewBlock> getTasksInBacklog() {
-        List<SelenideElement> elements = Selenide.$$x(taskPreviewBacklogSelector);
-        return elements.stream()
-                .map(TaskPreviewBlock::new)
-                .collect(Collectors.toList());
     }
 
     @Step
@@ -44,19 +33,12 @@ public class BoardPage extends LoggedInFilterPage {
         Assert.assertEquals(task.name.text(), expectedName, "Task name is not same as expected.");
     }
 
-    public void addedTaskIsVisible(){
+    public BoardPage() {
+        this.tasksNumberInBacklog = 0;
+    }
+
+    public void addedTaskIsVisible() {
         $x(String.format("%s[%s]", taskPreviewBacklogSelector, this.tasksNumberInBacklog)).shouldBe(visible);
-    }
-
-    @Override
-    protected SelenideElement readyElement() {
-        return addTaskIconBacklog;
-    }
-
-    @Step
-    @Override
-    public void openPage() {
-        open(EnvConfig.getBaseURL() + "/board/" + projectId);
     }
 
     public void setProjectId(Integer projectId) {
@@ -69,5 +51,23 @@ public class BoardPage extends LoggedInFilterPage {
 
     public int getTasksNumberInBacklog() {
         return tasksNumberInBacklog;
+    }
+
+    @Step
+    @Override
+    public void openPage() {
+        open(EnvConfig.getBaseURL() + "/board/" + projectId);
+    }
+
+    @Override
+    protected SelenideElement readyElement() {
+        return addTaskIconBacklog;
+    }
+
+    private List<TaskPreviewBlock> getTasksInBacklog() {
+        List<SelenideElement> elements = Selenide.$$x(taskPreviewBacklogSelector);
+        return elements.stream()
+                .map(TaskPreviewBlock::new)
+                .collect(Collectors.toList());
     }
 }

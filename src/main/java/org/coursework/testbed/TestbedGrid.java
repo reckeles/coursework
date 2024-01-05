@@ -16,7 +16,7 @@ import java.net.URL;
 
 import static org.coursework.utils.PropertyUtil.getProperty;
 
-public class TestbedGrid extends BaseTestbed{
+public class TestbedGrid extends BaseTestbed {
     @Override
     public WebDriver createDriver() {
         String gridHost;

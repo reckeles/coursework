@@ -56,12 +56,12 @@ public class LoginPage extends BasePage {
     }
 
     @Override
-    protected SelenideElement readyElement() {
-        return usernameInput;
+    public void openPage() {
+        open(EnvConfig.getBaseURL() + "/login");
     }
 
     @Override
-    public void openPage() {
-        open(EnvConfig.getBaseURL() + "/login");
+    protected SelenideElement readyElement() {
+        return usernameInput;
     }
 }
