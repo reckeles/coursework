@@ -13,7 +13,7 @@ abstract public class BaseTestbed {
     private final boolean HEADLESS_FLAG = Boolean.valueOf(getProperty("headless", "true"));
     protected final String WEB_BROWSER = getProperty("browser", "chrome");
 
-    final protected ChromeOptions getCommonChromeOptions() {
+    protected final ChromeOptions getCommonChromeOptions() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("disable-default-apps");
         options.addArguments("disable-extensions");
@@ -27,7 +27,7 @@ abstract public class BaseTestbed {
         return options;
     }
 
-    final protected FirefoxOptions getCommonFirefoxOptions() {
+    protected final FirefoxOptions getCommonFirefoxOptions() {
         FirefoxOptions options = new FirefoxOptions();
         //TODO switch to capabilities
         options.addArguments("disable-default-apps");

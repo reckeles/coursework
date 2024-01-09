@@ -10,8 +10,8 @@ import org.testng.Assert;
 import static com.codeborne.selenide.Selenide.*;
 
 public class ProjectPage extends LoggedInFilterPage {
-    private Integer projectId;
     private final String PROJECT_URL_REGEX = String.format("%s/project/\\d+", EnvConfig.getBaseURL());
+    private Integer projectId;
 
     private SelenideElement projectIsOpenLabel = $x("//ul[@class='panel']/li[1]");
     private SelenideElement projectGeneralInfoBlock = $("ul.panel");
@@ -23,10 +23,10 @@ public class ProjectPage extends LoggedInFilterPage {
         Assert.assertTrue(url.matches(PROJECT_URL_REGEX), "Current url is wrong" + url);
     }
 
-    public int getProjectId() {
-        String url = WebDriverRunner.url();
-        String[] splitURL = url.split("/");
-        return Integer.parseInt(splitURL[splitURL.length - 1]);
+    @Step
+    @Override
+    public void openPage() {
+        open(EnvConfig.getBaseURL() + "/project/" + projectId);
     }
 
     @Override
@@ -34,10 +34,10 @@ public class ProjectPage extends LoggedInFilterPage {
         return projectGeneralInfoBlock;
     }
 
-    @Step
-    @Override
-    public void openPage() {
-        open(EnvConfig.getBaseURL() + "/project/" + projectId);
+    public int getProjectId() {
+        String url = WebDriverRunner.url();
+        String[] splitURL = url.split("/");
+        return Integer.parseInt(splitURL[splitURL.length - 1]);
     }
 
     public void setProjectId(Integer projectId) {

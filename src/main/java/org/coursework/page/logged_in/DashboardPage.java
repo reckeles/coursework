@@ -25,14 +25,14 @@ public class DashboardPage extends LoggedInPage {
         return page(CreateProjectModalWindow.class);
     }
 
-    @Override
-    protected SelenideElement readyElement() {
-        return search;
-    }
-
     @Step
     @Override
     public void openPage() {
         open(EnvConfig.getBaseURL() + "/dashboard");
+    }
+
+    @Override
+    protected SelenideElement readyElement() {
+        return search;
     }
 }
